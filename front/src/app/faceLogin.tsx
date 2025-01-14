@@ -1,14 +1,31 @@
 import * as faceapi from 'face-api.js';
-import mockDB from './mock_user_data.json';
 
-const labeledDescriptors = mockDB.map(profile => {
-  return new faceapi.LabeledFaceDescriptors(
-    profile.label,
-    profile.descriptors.map((d: number[]) => new Float32Array(d))
-  );
-});
+let users = [];
+let labeledDescriptors = null;
+let faceMatcher = null;
 
-const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.6);
+try {
+  const response = await fetch("http://localhost:3000/users", {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  users = await response.json();
+  console.log(JSON.stringify(users));
+  if (users.length > 0) {
+    labeledDescriptors = users.map(profile => {
+      return new faceapi.LabeledFaceDescriptors(
+          profile.firstName + " " + profile.lastName,
+          profile.faceDescriptor.map((d: number[]) => new Float32Array(d))
+      );
+    });
+    faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.6);
+  }
+} catch (e) {
+  console.error("error fetching users", e);
+}
+
+
 
 export const loginUser = async (videoElement: HTMLVideoElement): Promise<string | null> => {
   try {
