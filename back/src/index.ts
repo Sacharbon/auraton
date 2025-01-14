@@ -6,15 +6,14 @@ import userRouter from "@routes/users";
 
 dotenv.config();
 
-const app = express();
 const port = process.env.API_PORT ?? 3000;
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 initializeDatabase().then(() => {
     console.log("Database initialized !");
-});
-
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World!');
 });
 
 app.use('/users/', userRouter);
