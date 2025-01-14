@@ -13,6 +13,7 @@
   "description": "",
   "_moduleAliases": {
     "@config": "dist/config",
+    "@errors": "dist/errors",
     "@models": "dist/models",
     "@middlewares": "dist/middlewares",
     "@routes": "dist/routes",
