@@ -1,17 +1,29 @@
-import { Button } from "@/components/ui/button";
+import Header from "@/components/dashboard/header";
+import { HotTopic } from "@/components/dashboard/hotTopic/hotTopic";
 
 export default function Home() {
   return (
     <div className="w-screen h-screen flex flex-col gap-10 p-4">
-      <div className="w-full h-fit flex flex-col items-center">
-        <p className="font-bold text-4xl">PROJECT WEEK</p>
-        <p className="text-2xl font-semibold">en légende</p>
+      <div className="w-full h-fit">
+        <Header />
       </div>
-      <div className="w-full h-full flex flex-row gap-4">
-        <div className="w-1/3 h-full bg-gray-700 rounded-lg"></div>
-        <div className="w-2/3 h-1/2 bg-gray-700 rounded-lg"></div>
+      <div className="w-full h-full flex flex-row gap-8">
+        <div className="w-[60%] h-full flex flex-col gap-8">
+          <div className="w-full h-[65%] border-2 border-gray-700 rounded-lg">
+            <HotTopic
+              title="Titre"
+              content="Contenu"
+              topicAttribut="Hot Topic"
+              topicColorAttribut="bg-red-500"
+            />
+          </div>
+          <div className="w-full h-[35%] border-2 border-gray-700 rounded-lg"></div>
+        </div>
+        <div className="w-[40%] h-full flex flex-col gap-8">
+          <div className="w-full h-[65%] border-2 border-gray-700 rounded-lg"></div>
+          <div className="w-full h-[35%] border-2 border-gray-700 rounded-lg"></div>
+        </div>
       </div>
-      <div className="w-2/3 h-1/2 bg-gray-700 rounded-lg"></div>
     </div>
   );
 }

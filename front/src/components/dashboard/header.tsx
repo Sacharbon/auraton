@@ -1,8 +1,11 @@
+"use client";
+
 import LogoBDE from "@/assets/LogoBDE.png";
 import Acceuil from "@/assets/Acceuil";
 import Ranking from "@/assets/Ranking";
 import Calendar from "@/assets/Calendar";
 import Profile from "@/assets/Profile";
+
 export default function Header() {
   return (
     <div className="h-full w-full flex flex-row justify-between items-center px-4">
@@ -17,26 +20,40 @@ export default function Header() {
       <div className="flex flex-row gap-16 pr-24">
         <div
           className={`w-fit h-fit flex flex-row justify-center items-center gap-2 hover:cursor-pointer hover:text-gray-500`}
+          onClick={() => {
+            window.location.href = "/";
+          }}
         >
           <Acceuil className="w-10 h-10" />
           <p className="text-xl font-semibold">Acceuil</p>
         </div>
         <div
           className={`w-fit h-fit flex flex-row justify-center items-center gap-2 hover:cursor-pointer hover:text-gray-500`}
+          onClick={() => {
+            window.location.href = "/ranking";
+          }}
         >
           <Ranking className="w-10 h-10" />
           <p className="text-xl font-semibold">Classement</p>
         </div>
         <div
           className={`w-fit h-fit flex flex-row justify-center items-center gap-2 hover:cursor-pointer hover:text-gray-500`}
+          onClick={() => {
+            window.location.href = "/calendar";
+          }}
         >
           <Calendar className="w-10 h-10" />
           <p className="text-xl font-semibold">Calendrier</p>
         </div>
       </div>
-      <div className="w-fit h-full flex flex-row items-center gap-2">
+      <div
+        className="w-fit h-full flex flex-row items-center gap-2 hover:text-gray-500 hover:cursor-pointer"
+        onClick={() => {
+          window.location.href = "/profile";
+        }}
+      >
         <p className="text-xl">John Doe</p>
-        <Profile className="w-12 h-12 text-black" />
+        <Profile className="w-12 h-12" />
       </div>
     </div>
   );
