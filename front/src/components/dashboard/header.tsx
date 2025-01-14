@@ -1,60 +1,69 @@
 "use client";
 
-import LogoBDE from "@/assets/LogoBDE.png";
 import Acceuil from "@/assets/Acceuil";
 import Ranking from "@/assets/Ranking";
 import Calendar from "@/assets/Calendar";
-import Profile from "@/assets/Profile";
+import Image from "next/image"
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
-  return (
-    <div className="h-full w-full flex flex-row justify-between items-center px-4">
-      <div className="w-fit h-full flex flex-row gap-2">
-        <div className="w-28 h-28 border-2 rounded-full place-items-center bg-gray-900">
-          <img src={LogoBDE.src} className="h-[88px] w-[88px] mt-3" />
+    const pathname = usePathname();
+
+    const isActive = (path) => pathname === path;
+
+    return (
+        <div className="h-full w-full flex flex-row justify-between items-center">
+            <p className="font-semibold text-5xl">BDE Epitech Rennes</p>
+            <div className="flex flex-row gap-14 mx-auto">
+                <div
+                    className={`w-fit h-fit flex flex-row justify-center items-center gap-2 hover:cursor-pointer transition-colors duration-200 ${
+                        isActive('/') ? 'text-black' : 'text-gray-400 hover:text-gray-600'
+                    }`}
+                    onClick={() => {
+                        window.location.href = "/";
+                    }}
+                >
+                    <Acceuil className="w-10 h-10" />
+                    <p className="font-semibold text-2xl">Accueil</p>
+                </div>
+                <div
+                    className={`w-fit h-fit flex flex-row justify-center items-center gap-2 hover:cursor-pointer transition-colors duration-200 ${
+                        isActive('/ranking') ? 'text-black' : 'text-gray-400 hover:text-gray-600'
+                    }`}
+                    onClick={() => {
+                        window.location.href = "/ranking";
+                    }}
+                >
+                    <Ranking className="w-10 h-10" />
+                    <p className="font-semibold text-2xl">Classement</p>
+                </div>
+                <div
+                    className={`w-fit h-fit flex flex-row justify-center items-center gap-2 hover:cursor-pointer transition-colors duration-200 ${
+                        isActive('/calendar') ? 'text-black' : 'text-gray-400 hover:text-gray-600'
+                    }`}
+                    onClick={() => {
+                        window.location.href = "/calendar";
+                    }}
+                >
+                    <Calendar className="w-10 h-10" />
+                    <p className="font-semibold text-2xl">Calendrier</p>
+                </div>
+            </div>
+            <div
+                className="w-fit h-full flex flex-row items-center gap-2 hover:cursor-pointer"
+                onClick={() => {
+                    window.location.href = "/profile";
+                }}
+            >
+                <Image
+                    src="https://cdn-icons-png.flaticon.com/512/3303/3303893.png"
+                    alt="Remote photo"
+                    width={100}
+                    height={100}
+                    className="w-10 h-10"
+                />
+                <p className="text-2xl font-semibold pl-1">Nouvel évènement</p>
+            </div>
         </div>
-        <div className="w-fit h-full flex flex-col justify-center">
-          <p className="font-semibold text-3xl">BDE Epitech Rennes</p>
-        </div>
-      </div>
-      <div className="flex flex-row gap-16 pr-24">
-        <div
-          className={`w-fit h-fit flex flex-row justify-center items-center gap-2 hover:cursor-pointer hover:text-gray-500`}
-          onClick={() => {
-            window.location.href = "/";
-          }}
-        >
-          <Acceuil className="w-10 h-10" />
-          <p className="text-xl font-semibold">Acceuil</p>
-        </div>
-        <div
-          className={`w-fit h-fit flex flex-row justify-center items-center gap-2 hover:cursor-pointer hover:text-gray-500`}
-          onClick={() => {
-            window.location.href = "/ranking";
-          }}
-        >
-          <Ranking className="w-10 h-10" />
-          <p className="text-xl font-semibold">Classement</p>
-        </div>
-        <div
-          className={`w-fit h-fit flex flex-row justify-center items-center gap-2 hover:cursor-pointer hover:text-gray-500`}
-          onClick={() => {
-            window.location.href = "/calendar";
-          }}
-        >
-          <Calendar className="w-10 h-10" />
-          <p className="text-xl font-semibold">Calendrier</p>
-        </div>
-      </div>
-      <div
-        className="w-fit h-full flex flex-row items-center gap-2 hover:text-gray-500 hover:cursor-pointer"
-        onClick={() => {
-          window.location.href = "/profile";
-        }}
-      >
-        <p className="text-xl">John Doe</p>
-        <Profile className="w-12 h-12" />
-      </div>
-    </div>
-  );
+    );
 }
