@@ -26,4 +26,6 @@ yarn.lock
 *.sln
 *.sw?
 sav.tsx
-sav.tsx
+**/node_modules/
+**/dist/
+.idea/
