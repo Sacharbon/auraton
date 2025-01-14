@@ -10,7 +10,7 @@ const labeledDescriptors = mockDB.map(profile => {
 
 const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.6);
 
-export const recognizeFace = async (videoElement: HTMLVideoElement): Promise<string | null> => {
+export const loginUser = async (videoElement: HTMLVideoElement): Promise<string | null> => {
   try {
     const MODEL_URL = '/models';
     await Promise.all([

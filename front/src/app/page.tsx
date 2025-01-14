@@ -1,14 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { recognizeFace } from './faceId.tsx';
+import { loginUser } from './faceLogin.tsx';
 
 const Home = () => {
-  const videoRef = useRef<HTMLVideoElement | null>(null); // Reference to the video element
-  const [userLabel, setUserLabel] = useState<string | null>(null); // State for the recognized label
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [userLabel, setUserLabel] = useState<string | null>(null);
 
   useEffect(() => {
-    // Start video stream once the component mounts
     const startVideo = async () => {
       if (videoRef.current) {
         const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
@@ -18,15 +17,13 @@ const Home = () => {
 
     startVideo();
 
-    // Setup face recognition every second
     const recognizeInterval = setInterval(async () => {
       if (videoRef.current) {
-        const label = await recognizeFace(videoRef.current);
-        setUserLabel(label); // Update state with the recognized label
+        const label = await loginUser(videoRef.current);
+        setUserLabel(label);
       }
-    }, 1000); // Adjust interval as needed
+    }, 1000);
 
-    // Cleanup on component unmount
     return () => {
       clearInterval(recognizeInterval);
     };
