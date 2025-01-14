@@ -31,11 +31,7 @@ export async function getUserById(req: Request, res: Response)
     }
 
     try {
-        user = await User.findOne({
-            where: {
-                faceDescriptor: []
-            }
-        });
+        user = await User.findByPk(id);
     } catch (error) {
         return handleRequestError(res, error);
     }
@@ -48,6 +44,6 @@ export async function getUserById(req: Request, res: Response)
     }
 
     res.json({
-        ...user
+        ...(user.dataValues)
     }).status(CODE_STATUS.SUCCESS);
 }
