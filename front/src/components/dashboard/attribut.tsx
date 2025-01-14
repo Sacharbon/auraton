@@ -1,4 +1,4 @@
-interface AttributProps {
+export interface AttributProps {
     attribut: string
     color: string
 }
