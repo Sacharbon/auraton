@@ -26,11 +26,11 @@ export const HotTopic = ({
   userColorAttribut,
 }: HotTopicProps) => {
   return (
-    <div className="flex rounded-lg space-x-16 p-5">
+    <div className="flex h-[90%] space-x-16 p-5 rounded-3xl shadow-3xl">
       <div className="flex space-x-5">
         {image && (
           <Image
-            className="rounded-lg"
+            className="rounded-lg object-cover"
             height={400}
             width={400}
             src={image}

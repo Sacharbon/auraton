@@ -16,6 +16,9 @@ export default {
       fontFamily: {
         poppins: ['var(--font-poppins)'],
         sans: ['var(--font-poppins)'],
+      },
+      boxShadow: {
+        '3xl': '0 0 100px 0 rgba(0, 0, 0, 0.07)',
       }
     },
   },

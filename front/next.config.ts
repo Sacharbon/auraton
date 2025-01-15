@@ -9,6 +9,18 @@ const nextConfig: NextConfig = {
                 port: '',
                 pathname: '/**',
             },
+            {
+                protocol: 'https',
+                hostname: 'em-content.zobj.net',
+                port: '',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'france3-regions.francetvinfo.fr',
+                port: '',
+                pathname: '/**',
+            },
         ],
     },
 };
