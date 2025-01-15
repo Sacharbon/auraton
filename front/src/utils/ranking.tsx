@@ -1,8 +1,8 @@
-import { getUsers } from './getUsers.tsx'
+import { getUsers } from "./getUsers.tsx";
 
-export async function ranking() {
+export default async function ranking() {
   const users = await getUsers();
-  users.sort((a, b) => b.aura - a.aura);
+  users.sort((a: any, b: any) => b.aura - a.aura);
   return users;
 }
 
