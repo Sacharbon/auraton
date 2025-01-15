@@ -39,3 +39,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+## IDE
+.idea/
+
+.env
+**/node_modules/
+**/dist/
