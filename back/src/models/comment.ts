@@ -4,7 +4,7 @@ import Event from "@models/event";
 
 class Comment extends Model {
     declare authorId: number;
-    declare announceId: number;
+    declare eventId: number;
     declare comment: string;
     declare likes: number;
 }
@@ -20,7 +20,7 @@ export async function initCommentModel(database: Sequelize) {
                     key: 'id'
                 }
             },
-            announceId: {
+            eventId: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 references: {
@@ -42,6 +42,7 @@ export async function initCommentModel(database: Sequelize) {
             sequelize: database, modelName: 'Comment'
         }
     );
+
 }
 
 export default Comment;
