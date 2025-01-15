@@ -5,5 +5,3 @@ export async function ranking() {
   users.sort((a, b) => b.aura - a.aura);
   return users;
 }
-
-await ranking();
