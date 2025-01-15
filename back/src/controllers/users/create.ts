@@ -10,6 +10,7 @@ export async function createUser(req: Request, res: Response)
     const { firstName, lastName, faceDescriptor } = req.body;
     const picture = req.file;
 
+    console.log(req.body);
     // Required fields
     if (!firstName || !lastName || !faceDescriptor) {
         await deleteUploadedFile(picture);
@@ -19,16 +20,7 @@ export async function createUser(req: Request, res: Response)
         ));
     }
 
-    let faceId = null;
-
-    try {
-        faceId = JSON.parse(faceDescriptor);
-    } catch (error) {
-        return handleRequestError(res, new CustomError(
-            CUSTOM_ERROR_TYPE.BAD_REQUEST,
-            "The field 'faceDescriptor' should be an array of float."
-        ));
-    }
+    let faceId = faceDescriptor;
 
     // Create user
     let user = null;
