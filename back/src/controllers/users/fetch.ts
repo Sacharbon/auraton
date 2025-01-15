@@ -5,25 +5,20 @@ import CustomError, {CUSTOM_ERROR_TYPE} from "@errors/custom";
 import {CODE_STATUS} from "@config/variables";
 
 
-export function getUsers(req: Request, res: Response)
+export async function getUsers(req: Request, res: Response)
 {
     let users = null;
 
     try {
-        users = User.findAll();
+        users = await User.findAll();
     } catch (error) {
         return handleRequestError(res, error);
     }
 
-    if (!users)
-        users = [];
-
-    res.json({
-        users
-    }).status(CODE_STATUS.SUCCESS);
+    res.json(users).status(CODE_STATUS.SUCCESS);
 }
 
-export function getUserById(req: Request, res: Response)
+export async function getUserById(req: Request, res: Response)
 {
     const { id } = req.params;
     let user = null;
@@ -36,7 +31,7 @@ export function getUserById(req: Request, res: Response)
     }
 
     try {
-        user = User.findByPk(id);
+        user = await User.findByPk(id);
     } catch (error) {
         return handleRequestError(res, error);
     }
@@ -49,6 +44,6 @@ export function getUserById(req: Request, res: Response)
     }
 
     res.json({
-        ...user
+        ...(user.dataValues)
     }).status(CODE_STATUS.SUCCESS);
 }

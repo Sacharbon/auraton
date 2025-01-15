@@ -7,6 +7,7 @@ class User extends Model {
     declare lastName: string;
     declare faceDescriptor: number[]; // Float32
     declare role: string[];
+    declare pictureUrl: string;
 }
 
 export async function initUserModel(database: Sequelize) {
@@ -34,6 +35,15 @@ export async function initUserModel(database: Sequelize) {
                 type: DataTypes.JSON,
                 allowNull: false,
                 defaultValue: []
+            },
+            pictureUrl: {
+                type: DataTypes.STRING,
+                allowNull: true
+            },
+            aura: {
+                type: DataTypes.INTEGER,
+                allowNull: true,
+                defaultValue: 0
             }
         },
         {
