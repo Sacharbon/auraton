@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize";
 import {initUserModel} from "@models/user";
-import {initAnnounceModel} from "@models/announce";
+import {initEventModel} from "@models/event";
 import {initCommentModel} from "@models/comment";
 
 dotenv.config();
@@ -22,7 +22,7 @@ export async function initializeDatabase()
     try {
         await database.authenticate();
         await initUserModel(database);
-        await initAnnounceModel(database);
+        await initEventModel(database);
         await initCommentModel(database);
         console.log('Successfully connected to the db.');
     } catch (error) {
