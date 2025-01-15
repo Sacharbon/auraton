@@ -9,17 +9,14 @@ import {CODE_STATUS} from "@config/variables";
 
 export default async function createEvent(req: Request, res: Response)
 {
-    const { authorId, label, title, description } = req.body;
+    const { authorId, label, title, description, scheduledAt } = req.body;
     const image = req.file;
 
-    console.log("POST params: ", req.params)
-    console.log("POST body: ", req.body)
-
-    if (!authorId || !label || !title || !description || !image) {
+    if (!authorId || !label || !title || !description || !image || !scheduledAt) {
         await deleteUploadedFile(image);
         return handleRequestError(res, new CustomError(
             CUSTOM_ERROR_TYPE.BAD_REQUEST,
-            "At least one of the required parameter is missing (authorId, label, title, description, image)."
+            "At least one of the required parameter is missing (authorId, label, title, description, image, scheduledAt)."
         ));
     }
 
@@ -45,7 +42,8 @@ export default async function createEvent(req: Request, res: Response)
         event = await Event.create({
             label,
             title,
-            description
+            description,
+            scheduledAt
         });
     } catch (error) {
         await deleteUploadedFile(image);

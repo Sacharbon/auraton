@@ -9,7 +9,7 @@ import {CODE_STATUS} from "@config/variables";
 
 export default async function updateEvent(req: Request, res: Response)
 {
-    const { userId, label, title, description, likes } = req.body;
+    const { userId, label, title, description, likes, scheduledAt } = req.body;
     const image = req.file;
     const { id } = req.params;
 
@@ -58,6 +58,7 @@ export default async function updateEvent(req: Request, res: Response)
     event.label = label ?? event.label;
     event.title = title ?? event.title;
     event.description = description ?? event.description;
+    event.scheduledAt = scheduledAt ?? event.scheduledAt;
 
     if (likes && !isNaN(parseInt(likes)))
         event.likes = parseInt(likes) ?? event.likes;

@@ -10,6 +10,7 @@ class Event extends Model {
     declare imageUrl?: string;
     declare authorId: number;
     declare likes: number;
+    declare scheduledAt: string;
 
     declare author: User;
     declare comments: Comment[];
@@ -51,6 +52,10 @@ export async function initEventModel(database: Sequelize) {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 defaultValue: 0
+            },
+            scheduledAt: {
+                type: DataTypes.DATE,
+                allowNull: false
             }
         },
         {
