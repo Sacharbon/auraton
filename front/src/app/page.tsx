@@ -1,6 +1,10 @@
 import Header from "@/components/dashboard/header";
 import { HotTopic } from "@/components/dashboard/hotTopic/hotTopic";
 import Image from "next/image";
+import { PastEvents } from "@/components/dashboard/pastEvents/pastEvents";
+import { Images } from "@/components/test";
+import { Users } from "@/components/dashboard/users";
+import { IncomingEvents } from "@/components/dashboard/incomingEvents/incomingEvents";
 
 export default function Home() {
   return (
@@ -38,14 +42,35 @@ export default function Home() {
                          className="w-10 h-10"
                   />
               </div>
-                  <div className="rounded-3xl shadow-3xl">
-                  <HotTopic
-                      title="Titre"
-                      content="Contenu"
-                      topicAttribut="Hot Topic"
-                      topicColorAttribut="bg-red-500"
-                  />
-                  </div>
+                <div className="flex space-x-14">
+                  <div className="rounded-3xl shadow-3xl w-80 h-48  ">
+                      <IncomingEvents userIcon={Images.aurelien}
+                                      userName="Aurelien Joncourt"
+                                      userRank={Images.knight}
+                                      titre="Je suis de retour !!"
+                                      description="yo la team je suis de retour, tout ça pour dire que je bz esteban cet enorme fdp, je le 1v1 facile ce chien de merde sdqsc aeazeazq qsdqsdsq"
+                                      nbRegistered="13"
+                                      date="19 Janv. 2025"></IncomingEvents>
+                    </div>
+                  <div className="rounded-3xl shadow-3xl w-80 h-48  ">
+                      <IncomingEvents userIcon={Images.aurelien}
+                                      userName="Aurelien Joncourt"
+                                      userRank={Images.knight}
+                                      titre="Je suis de retour !!"
+                                      description="yo la team je suis de retour, tout ça pour dire que je bz esteban cet enorme fdp, je le 1v1 facile ce chien de merde sdqsc aeazeazq qsdqsdsq"
+                                      nbRegistered="13"
+                                      date="19 Janv. 2025"></IncomingEvents>
+                    </div>
+                    <div className="rounded-3xl shadow-3xl w-80 h-48  ">
+                      <IncomingEvents userIcon={Images.aurelien}
+                                      userName="Aurelien Joncourt"
+                                      userRank={Images.knight}
+                                      titre="Je suis de retour !!"
+                                      description="yo la team je suis de retour, tout ça pour dire que je bz esteban cet enorme fdp, je le 1v1 facile ce chien de merde sdqsc aeazeazq qsdqsdsq"
+                                      nbRegistered="13"
+                                      date="19 Janv. 2025"></IncomingEvents>
+                    </div>
+                </div>
               </div>
           </div>
           <div className="w-[40%] h-full flex flex-col gap-8">
@@ -79,14 +104,7 @@ export default function Home() {
                            className="w-10 h-10"
                     />
                 </div>
-                    <div className="rounded-3xl shadow-3xl">
-                    <HotTopic
-                        title="Titre"
-                        content="Contenu"
-                        topicAttribut="Hot Topic"
-                        topicColorAttribut="bg-red-500"
-                    />
-                    </div>
+                  <PastEvents image1={Images.aurelien} image2={Images.aurelien}></PastEvents>
           </div>
         </div>
       </div>
