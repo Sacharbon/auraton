@@ -57,6 +57,7 @@ export async function initEventModel(database: Sequelize) {
             sequelize: database, modelName: 'Event'
         }
     );
+
 }
 
 export default Event;

@@ -3,6 +3,7 @@ import handleRequestError from "@errors/handler";
 import {deleteUploadedFile, saveUploadedFile} from "@middlewares/upload-file";
 import CustomError, {CUSTOM_ERROR_TYPE} from "@errors/custom";
 import User from "@models/user";
+import Comment from "@models/comment";
 import Event from "@models/event";
 import {CODE_STATUS} from "@config/variables";
 
@@ -10,6 +11,9 @@ export default async function createEvent(req: Request, res: Response)
 {
     const { authorId, label, title, description } = req.body;
     const image = req.file;
+
+    console.log("POST params: ", req.params)
+    console.log("POST body: ", req.body)
 
     if (!authorId || !label || !title || !description || !image) {
         await deleteUploadedFile(image);
@@ -48,7 +52,7 @@ export default async function createEvent(req: Request, res: Response)
         return handleRequestError(res, error);
     }
 
-    event.dataValues.author = author;
+    event.authorId = parseInt(authorId);
 
     try {
         event.imageUrl = await saveUploadedFile(image, event.id.toString());
@@ -63,7 +67,25 @@ export default async function createEvent(req: Request, res: Response)
         return handleRequestError(res, error);
     }
 
-    res.status(CODE_STATUS.SUCCESS).json({
-        ...(event.dataValues)
-    });
+    try {
+        event = await Event.findByPk(event.id, {
+            attributes: {
+                exclude: ['authorId']
+            },
+            include: [
+                {
+                    model: Comment,
+                    as: "comments"
+                },
+                {
+                    model: User,
+                    as: "author"
+                }
+            ]
+        });
+    } catch (error) {
+        return handleRequestError(res, error);
+    }
+
+    res.status(CODE_STATUS.SUCCESS).json(event);
 }
