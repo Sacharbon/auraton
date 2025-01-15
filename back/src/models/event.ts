@@ -2,13 +2,12 @@ import {DataTypes, Model, Sequelize} from 'sequelize';
 import User from "@models/user";
 import Comment from "@models/comment";
 
-class Announce extends Model {
+class Event extends Model {
     declare id: number;
     declare label: string;
     declare title: string;
     declare description: string;
     declare imageUrl?: string;
-    declare videoUrl?: string;
     declare authorId: number;
     declare likes: number;
 
@@ -16,8 +15,8 @@ class Announce extends Model {
     declare comments: Comment[];
 }
 
-export async function initAnnounceModel(database: Sequelize) {
-    Announce.init(
+export async function initEventModel(database: Sequelize) {
+    Event.init(
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -41,10 +40,6 @@ export async function initAnnounceModel(database: Sequelize) {
                 type: DataTypes.STRING,
                 allowNull: true
             },
-            videoUrl: {
-                type: DataTypes.STRING,
-                allowNull: true
-            },
             authorId: {
                 type: DataTypes.INTEGER,
                 references: {
@@ -59,9 +54,9 @@ export async function initAnnounceModel(database: Sequelize) {
             }
         },
         {
-            sequelize: database, modelName: 'Announce'
+            sequelize: database, modelName: 'Event'
         }
     );
 }
 
-export default Announce;
+export default Event;
