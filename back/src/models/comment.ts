@@ -1,6 +1,6 @@
 import {DataTypes, Model, Sequelize} from 'sequelize';
 import User from "@models/user";
-import Announce from "@models/announce";
+import Event from "@models/event";
 
 class Comment extends Model {
     declare authorId: number;
@@ -24,7 +24,7 @@ export async function initCommentModel(database: Sequelize) {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 references: {
-                    model: Announce,
+                    model: Event,
                     key: 'id'
                 }
             },

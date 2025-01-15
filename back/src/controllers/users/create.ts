@@ -4,6 +4,7 @@ import handleRequestError from "@errors/handler";
 import CustomError, {CUSTOM_ERROR_TYPE} from "@errors/custom";
 import User from "@models/user";
 import {CODE_STATUS} from "@config/variables";
+import {isValidFaceIdFormat} from "@utils/face-id";
 
 export async function createUser(req: Request, res: Response)
 {
@@ -21,13 +22,24 @@ export async function createUser(req: Request, res: Response)
 
     let faceId = null;
 
-    try {
-        faceId = JSON.parse(faceDescriptor);
-    } catch (error) {
-        return handleRequestError(res, new CustomError(
-            CUSTOM_ERROR_TYPE.BAD_REQUEST,
-            "The field 'faceDescriptor' should be an array of float."
-        ));
+    if (typeof faceDescriptor === "string") {
+        try {
+            faceId = JSON.parse(faceDescriptor);
+            if (!isValidFaceIdFormat(faceId)) {
+                await deleteUploadedFile(picture);
+                return handleRequestError(res, new CustomError(
+                    CUSTOM_ERROR_TYPE.BAD_REQUEST,
+                    "The format of the field 'faceDescriptor' should be an array of array of float."
+                ));
+            }
+        } catch (error) {
+            return handleRequestError(res, new CustomError(
+                CUSTOM_ERROR_TYPE.BAD_REQUEST,
+                "The field 'faceDescriptor' should be an array of float."
+            ));
+        }
+    } else {
+        faceId = faceDescriptor;
     }
 
     // Create user

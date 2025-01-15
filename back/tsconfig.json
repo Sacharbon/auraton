@@ -4,6 +4,7 @@
     "paths": {
       "@config/*": ["src/config/*"],
       "@errors/*": ["src/errors/*"],
+      "@utils/*": ["src/utils/*"],
       "@models/*": ["src/models/*"],
       "@middlewares/*": ["src/middlewares/*"],
       "@routes/*": ["src/routes/*"],
