@@ -39,6 +39,11 @@ export async function initUserModel(database: Sequelize) {
             pictureUrl: {
                 type: DataTypes.STRING,
                 allowNull: true
+            },
+            aura: {
+                type: DataTypes.INTEGER,
+                allowNull: true,
+                defaultValue: 0
             }
         },
         {
