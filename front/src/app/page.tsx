@@ -7,8 +7,39 @@ import Image from "next/image";
 import { PastEvents } from "@/components/dashboard/pastEvents/pastEvents";
 import { Images } from "@/components/test";
 import { IncomingEvents } from "@/components/dashboard/incomingEvents/incomingEvents";
+import { useEffect, useState } from "react";
+import { hypeEvent } from "@/utils/hypeEvent.ts";
+import { nextEvents } from "@/utils/nextEvents.ts";
+import { lastEvents } from "@/utils/lastEvents.ts";
+import { ranking } from "@/utils/ranking.ts";
+import { User } from "@/utils/apiEntity.ts";
 
 export default function Home() {
+  const [showModal, setShowModal] = useState(false);
+  const [hotEvent, setHotEvent] = useState<Event|null>(null);
+  const [incomingEvents, setIncomingEvents] = useState<Event[]>([]);
+  const [endedEvents, setEndedEvents] = useState<Event[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    hypeEvent()
+        .then(event => {
+          setHotEvent(event);
+        });
+    nextEvents()
+        .then(events => {
+          setIncomingEvents(events);
+        })
+    lastEvents()
+        .then(events => {
+          setEndedEvents(events);
+        })
+    ranking()
+        .then(users => {
+          setUsers(users);
+        })
+  }, []);
+
   return (
     <div className="w-screen h-screen flex flex-col gap-16 px-12 pt-12 pb-8">
       <div className="w-full h-fit">

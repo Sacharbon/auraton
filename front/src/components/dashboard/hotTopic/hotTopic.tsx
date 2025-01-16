@@ -46,7 +46,6 @@ export const HotTopic = ({
   const streamRef = useRef<MediaStream | null>(null);
   const [user, setUser] = useState({});
   const [displayName, setDisplayName] = useState(false);
-  let recognizeInterval: any = null;
   const [subscribed, setSubscribed] = useState<boolean>(false);
   let recognizeInterval = null;
 
