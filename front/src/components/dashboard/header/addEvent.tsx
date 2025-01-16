@@ -143,8 +143,8 @@ const EventModal = () => {
               Tag :
             </label>
             <select
-              id="tag"
-              name="tag"
+              id="label"
+              name="label"
               value={eventData.label}
               onChange={handleChange}
               required
