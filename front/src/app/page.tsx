@@ -41,6 +41,7 @@ export default function Home() {
               userColorAttribut="bg-yellow-500"
               topicColorAttribut="bg-red-500"
               image="https://france3-regions.francetvinfo.fr/image/LnH9icnOXHg6S81iNxluNAmYVgc/1920x1080/regions/2023/10/24/reinesdufoot24p-tremolat-mamies-foot-00-00-21-15-653772cc06b36854329854.jpg"
+              id={1}
             />
           </div>
           <div className="w-full h-[35%]">

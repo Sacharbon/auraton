@@ -6,6 +6,7 @@ import { CommentButton } from "../Buttons/commentButton";
 import { Button } from "@chakra-ui/react";
 import {loginUser} from "@/utils/faceLogin.ts";
 import {useRef, useState} from "react";
+import { register } from '../../../utils/register.ts';
 import ReactModal from "react-modal";
 
 interface HotTopicProps {
@@ -20,6 +21,7 @@ interface HotTopicProps {
   userRank?: string
   userAttribut?: string;
   userColorAttribut?: string;
+  id: number;
 }
 
 export const HotTopic = ({
@@ -34,11 +36,13 @@ export const HotTopic = ({
   userRank,
   userAttribut,
   userColorAttribut,
+  id,
 }: HotTopicProps) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const [user, setUser] = useState({});
   const [displayName, setDisplayName] = useState(false);
+  const [subscribed, setSubscribed] = useState<boolean>(false);
   let recognizeInterval = null;
 
   const startCamera = async () => {
@@ -57,7 +61,8 @@ export const HotTopic = ({
           const label = await loginUser(videoRef.current);
           setUser(label);
           stopCamera();
-          console.log(label);
+          register(label.id, id);
+          setSubscribed(true);
         }
       }, 1000);
     } catch (err) {
@@ -110,16 +115,16 @@ export const HotTopic = ({
         </div>
         <div className="flex items-center justify-start space-x-5">
           <div className="text-lg opacity-50">{nbRegistered} inscrits</div>
-          <Button size={"2xs"}
-                  onClick={() => {
-                    setDisplayName(true);
-                    startCamera();
-                  }}
-                  bg={"black"}
-                  color={"white"}
-                  width={120}
-                  height={10}
-                  rounded={"2xl"}>S'inscrire</Button>
+          {!subscribed && <Button size={"2xs"}
+                   onClick={() => {
+                     setDisplayName(true);
+                     startCamera();
+                   }}
+                   bg={"black"}
+                   color={"white"}
+                   width={120}
+                   height={10}
+                   rounded={"2xl"}>S'inscrire</Button>}
           <CommentButton nbComments="3"></CommentButton>
           <LikeButton nbLikes="12"></LikeButton>
         </div>
