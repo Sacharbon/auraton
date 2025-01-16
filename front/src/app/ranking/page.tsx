@@ -1,7 +1,6 @@
 import Header from "@/components/dashboard/header";
 import { Podium } from "@/components/dashboard/ranking/podium";
 import { Images } from "@/components/test";
-import Image from "next/image";
 
 export default function Ranking() {
   return (
