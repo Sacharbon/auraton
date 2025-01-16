@@ -1,6 +1,7 @@
 import {DataTypes, Model, Sequelize} from 'sequelize';
 import User from "@models/user";
 import Comment from "@models/comment";
+import Registration from "@models/registration";
 
 class Event extends Model {
     declare id: number;
@@ -14,6 +15,7 @@ class Event extends Model {
 
     declare author: User;
     declare comments: Comment[];
+    declare registeredUsers: Registration[];
 }
 
 export async function initEventModel(database: Sequelize) {
