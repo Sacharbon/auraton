@@ -1,4 +1,4 @@
-import { getUsers } from "./getUsers.tsx";
+import { getUsers } from "./getUsers";
 
 export default async function ranking() {
   const users = await getUsers();

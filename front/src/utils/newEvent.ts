@@ -1,6 +1,6 @@
-export async function newEvent(authorId: number, label: string, title: string, description: string, image: File, scheduledAt: Date) {
+export async function newEvent(authorId: number, label: string, title: string, description: string, image: File, scheduledAt: string) {
   const data = new FormData();
-  data.append("authorId", authorId);
+  data.append("authorId", authorId.toString());
   data.append("label", label);
   data.append("title", title);
   data.append("description", description);
@@ -12,7 +12,7 @@ export async function newEvent(authorId: number, label: string, title: string, d
 
   const req = await fetch(postEventUrl, {
     method: "POST",
-    header: {
+    headers: {
       "Content-Type": "application/json"
     },
     body: data 

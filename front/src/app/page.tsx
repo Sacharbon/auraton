@@ -7,8 +7,57 @@ import Image from "next/image";
 import { PastEvents } from "@/components/dashboard/pastEvents/pastEvents";
 import { Images } from "@/components/test";
 import { IncomingEvents } from "@/components/dashboard/incomingEvents/incomingEvents";
+import {useEffect, useState} from "react";
+import {hypeEvent} from "@/utils/hypeEvent";
+import {Event, Comment, User} from "@/utils/apiEntity";
+import {nextEvents} from "@/utils/nextEvents.ts";
+import {formatStringDate} from "@/utils/date.ts";
+import {lastEvents} from "@/utils/lastEvents.ts";
+import ranking from "@/utils/ranking.ts";
 
 export default function Home() {
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      height: "90%",
+      width: "40%",
+      transform: "translate(-50%, -50%)",
+      borderRadius: "1.5rem",
+      boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+      border: "none",
+      padding: "1rem",
+      backgroundColor: "white",
+      overflow: "hidden",
+    },
+  };
+
+  const [showModal, setShowModal] = useState(false);
+  const [hotEvent, setHotEvent] = useState<Event|null>(null);
+  const [incomingEvents, setIncomingEvents] = useState<Event[]>([]);
+  const [endedEvents, setEndedEvents] = useState<Event[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    hypeEvent()
+        .then(event => {
+          setHotEvent(event);
+        });
+    nextEvents()
+        .then(events => {
+          setIncomingEvents(events);
+        })
+    lastEvents()
+        .then(events => {
+          setEndedEvents(events);
+        })
+    ranking()
+        .then(users => {
+          setUsers(users);
+        })
+  }, []);
+
+
   return (
     <div className="w-screen h-screen flex flex-col gap-16 px-12 pt-12 pb-8">
       <div className="w-full h-fit">
@@ -29,19 +78,26 @@ export default function Home() {
                 className="w-10 h-10"
               />
             </div>
-            <HotTopic
-              title="Classico tek1 vs tek2"
-              content="Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu  Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu "
-              nbRegistered="23"
-              topicAttribut="Hot Topic"
-              userIcon={Images.aurelien}
-              userName="Aurelien Joncourt"
-              userRank={Images.knight}
-              userAttribut="OEUF"
-              userColorAttribut="bg-yellow-500"
-              topicColorAttribut="bg-red-500"
-              image="https://france3-regions.francetvinfo.fr/image/LnH9icnOXHg6S81iNxluNAmYVgc/1920x1080/regions/2023/10/24/reinesdufoot24p-tremolat-mamies-foot-00-00-21-15-653772cc06b36854329854.jpg"
-            />
+            <div className="flex h-[90%] space-x-16 w-100 p-5 rounded-3xl shadow-3xl justify-center items-center">
+              {!hotEvent && <h1 className="font-bold text-2xl">Aucun évènement</h1>
+                ||
+                <HotTopic
+                  title={hotEvent?.title ?? ""}
+                  content={hotEvent?.description ?? ""}
+                  nbRegistered={hotEvent?.registeredUsers.length.toString() ?? ""}
+                  nbComments={hotEvent?.comments.length.toString() ?? ""}
+                  nbLikes={hotEvent?.likes.toString() ?? ""}
+                  topicAttribut="HOT TOPIC"
+                  userIcon={"http://localhost:3000/" + hotEvent?.author.pictureUrl}
+                  userName={hotEvent?.author.firstName + " " + hotEvent?.author.lastName}
+                  userRank={Images.knight}
+                  userAttribut={hotEvent?.author.roles.toString()}
+                  userColorAttribut="bg-yellow-500"
+                  topicColorAttribut="bg-red-500"
+                  image={"http://localhost:3000/" + hotEvent?.imageUrl}
+                />
+            }
+          </div>
           </div>
           <div className="w-full h-[35%]">
             <div className="w-full h-[35%]">
@@ -58,39 +114,19 @@ export default function Home() {
                 />
               </div>
               <div className="flex space-x-14">
-                <div className="rounded-3xl shadow-3xl w-80 h-48  ">
-                  <IncomingEvents
-                    userIcon={Images.aurelien}
-                    userName="Aurelien Joncourt"
-                    userRank={Images.knight}
-                    titre="Je suis de retour !!"
-                    description="yo la team je suis de retour, tout ça pour dire que je bz esteban cet enorme fdp, je le 1v1 facile ce chien de merde sdqsc aeazeazq qsdqsdsq"
-                    nbRegistered="13"
-                    date="19 Janv. 2025"
-                  ></IncomingEvents>
-                </div>
-                <div className="rounded-3xl shadow-3xl w-80 h-48  ">
-                  <IncomingEvents
-                    userIcon={Images.aurelien}
-                    userName="Aurelien Joncourt"
-                    userRank={Images.knight}
-                    titre="Je suis de retour !!"
-                    description="yo la team je suis de retour, tout ça pour dire que je bz esteban cet enorme fdp, je le 1v1 facile ce chien de merde sdqsc aeazeazq qsdqsdsq"
-                    nbRegistered="13"
-                    date="19 Janv. 2025"
-                  ></IncomingEvents>
-                </div>
-                <div className="rounded-3xl shadow-3xl w-80 h-48  ">
-                  <IncomingEvents
-                    userIcon={Images.aurelien}
-                    userName="Aurelien Joncourt"
-                    userRank={Images.knight}
-                    titre="Je suis de retour !!"
-                    description="yo la team je suis de retour, tout ça pour dire que je bz esteban cet enorme fdp, je le 1v1 facile ce chien de merde sdqsc aeazeazq qsdqsdsq"
-                    nbRegistered="13"
-                    date="19 Janv. 2025"
-                  ></IncomingEvents>
-                </div>
+                {incomingEvents.map((event, index) => (
+                    <div key={index} className="rounded-3xl shadow-3xl w-80 h-48">
+                      <IncomingEvents
+                          userIcon={"http://localhost:3000/" + event.author.pictureUrl}
+                          userName={event.author.firstName + " " + event.author.lastName}
+                          userRank={Images.knight}
+                          titre={event.title}
+                          description={event.description}
+                          nbRegistered={event.registeredUsers.length.toString()}
+                          date={formatStringDate(event.scheduledAt)}
+                      ></IncomingEvents>
+                    </div>
+                ))}
               </div>
             </div>
           </div>
@@ -110,7 +146,7 @@ export default function Home() {
               />
             </div>
             <div className="h-full rounded-3xl ">
-              <Leaderboard />
+              <Leaderboard users={users}/>
             </div>
           </div>
           <div className="w-full h-[35%]">
@@ -128,8 +164,8 @@ export default function Home() {
             </div>
             <div className="rounded-3xl">
               <PastEvents
-                image1={Images.aurelien}
-                image2={Images.aurelien}
+                image1={endedEvents.length > 0 && "http://localhost:3000/" + endedEvents[0].imageUrl || Images.img_placeholder}
+                image2={endedEvents.length > 1 && "http://localhost:3000/" + endedEvents[0].imageUrl || Images.img_placeholder}
               ></PastEvents>
             </div>
           </div>

@@ -53,8 +53,8 @@ export default function UserRank({ rank, name, aura, picture }: UserRankProps) {
   const IconClass = "h-8 w-8 text-black";
 
   return (
-    <div className="w-full h-10 flex flex-row items-center gap-6 pl-4 text-sm">
-      <div className="flex flex-row items-center w-full gap-10 justify-start">
+    <div className="w-full h-10 flex flex-row items-center gap-6 mb-3 pl-4 text-sm">
+      <div className="flex flex-row items-center w-full gap-[35%] justify-start">
         <p>#{rank}</p>
         <div className="flex flex-row items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-full">

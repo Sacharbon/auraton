@@ -99,7 +99,7 @@ export default function Header() {
           },
         }}
       >
-        <EventModal />
+        <EventModal handleClose={() => setShowModal(false)} />
       </ReactModal>
     </div>
   );

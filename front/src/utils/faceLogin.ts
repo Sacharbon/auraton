@@ -13,7 +13,7 @@ try {
   users = await response.json();
   //console.log(JSON.stringify(users));
   if (users.length > 0) {
-    labeledDescriptors = users.map(profile => {
+    labeledDescriptors = users.map((profile: any) => {
       return new faceapi.LabeledFaceDescriptors(
           profile.id.toString(),
           profile.faceDescriptor.map((d: number[]) => new Float32Array(d))

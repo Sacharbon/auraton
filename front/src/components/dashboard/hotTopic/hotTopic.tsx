@@ -12,7 +12,9 @@ interface HotTopicProps {
   image?: string;
   title: string;
   content: string;
-  nbRegistered: string
+  nbRegistered: string;
+  nbComments: string;
+  nbLikes: string;
   topicAttribut: string;
   topicColorAttribut: string;
   userIcon?: string;
@@ -27,6 +29,8 @@ export const HotTopic = ({
   title,
   content,
   nbRegistered,
+  nbComments,
+  nbLikes,
   topicAttribut,
   topicColorAttribut,
   userIcon,
@@ -39,7 +43,7 @@ export const HotTopic = ({
   const streamRef = useRef<MediaStream | null>(null);
   const [user, setUser] = useState({});
   const [displayName, setDisplayName] = useState(false);
-  let recognizeInterval = null;
+  let recognizeInterval: any = null;
 
   const startCamera = async () => {
     try {
@@ -78,16 +82,16 @@ export const HotTopic = ({
   };
 
   return (
-    <div className="flex h-[90%] space-x-16 w-100 p-5 rounded-3xl shadow-3xl">
+    <>
       <div className="flex space-x-5">
         {image && (
-          <Image
+          <img
             className="rounded-lg object-cover"
             height={400}
             width={400}
             src={image}
             alt="image"
-          ></Image>
+          />
         )}
       </div>
       <div className="flex flex-col w-[560px] space-y-4 justify-between">
@@ -119,9 +123,10 @@ export const HotTopic = ({
                   color={"white"}
                   width={120}
                   height={10}
-                  rounded={"2xl"}>S'inscrire</Button>
-          <CommentButton nbComments="3"></CommentButton>
-          <LikeButton nbLikes="12"></LikeButton>
+                  rounded={"2xl"}
+          >S'inscrire</Button>
+          <CommentButton nbComments={nbComments}></CommentButton>
+          <LikeButton nbLikes={nbLikes}></LikeButton>
         </div>
       </div>
       <ReactModal isOpen={displayName} style={registerStyles} ariaHideApp={false}>
@@ -139,7 +144,8 @@ export const HotTopic = ({
           </video>
         </div>
       </ReactModal>
-    </div>
+    {/*</div>*/}
+    </>
   );
 };
 
