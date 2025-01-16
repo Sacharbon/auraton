@@ -3,11 +3,9 @@
 import Header from "@/components/dashboard/header";
 import { HotTopic } from "@/components/dashboard/hotTopic/hotTopic";
 import Leaderboard from "@/components/dashboard/ranking/leaderboard";
-import Modal from "@/utils/Modal";
 import Image from "next/image";
 import { PastEvents } from "@/components/dashboard/pastEvents/pastEvents";
 import { Images } from "@/components/test";
-import { Users } from "@/components/dashboard/users";
 import { IncomingEvents } from "@/components/dashboard/incomingEvents/incomingEvents";
 
 export default function Home() {
@@ -105,9 +103,9 @@ export default function Home() {
                 className="w-10 h-10"
               />
             </div>
-            {/* <div className="h-full rounded-3xl ">
+            <div className="h-full rounded-3xl ">
               <Leaderboard />
-            </div> */}
+            </div>
           </div>
           <div className="w-full h-[35%]">
             <div className="flex flex-row items-end pb-5">
