@@ -4,9 +4,9 @@ import { Title } from "@/components/dashboard/title";
 import { LikeButton } from "../Buttons/likeButton";
 import { CommentButton } from "../Buttons/commentButton";
 import { Button } from "@chakra-ui/react";
-import {loginUser} from "@/utils/faceLogin.ts";
-import {useRef, useState} from "react";
-import { register } from '../../../utils/register.ts';
+import { loginUser } from "@/utils/faceLogin.ts";
+import { useRef, useState } from "react";
+import { register } from "../../../utils/register.ts";
 import ReactModal from "react-modal";
 
 interface HotTopicProps {
@@ -20,7 +20,7 @@ interface HotTopicProps {
   topicColorAttribut: string;
   userIcon?: string;
   userName?: string;
-  userRank?: string
+  userRank?: string;
   userAttribut?: string;
   userColorAttribut?: string;
   id: number;
@@ -52,7 +52,7 @@ export const HotTopic = ({
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: true
+        video: true,
       });
 
       if (videoRef.current) {
@@ -79,7 +79,7 @@ export const HotTopic = ({
       clearInterval(recognizeInterval);
       setDisplayName(false);
       streamRef.current.getTracks().forEach((track) => {
-        if (track.readyState == 'live' && track.kind === 'video') {
+        if (track.readyState == "live" && track.kind === "video") {
           track.stop();
         }
       });
@@ -105,51 +105,73 @@ export const HotTopic = ({
           attribut={topicAttribut}
           colorAttribut={topicColorAttribut}
         ></Title>
-        {userName && userIcon && userAttribut && userRank && userColorAttribut && (
-          <Users
-            name={userName}
-            icon={userIcon}
-            iconRank={userRank}
-            attribut={userAttribut}
-            colorAttribut={userColorAttribut}
-          ></Users>
-        )}
+        {userName &&
+          userIcon &&
+          userAttribut &&
+          userRank &&
+          userColorAttribut && (
+            <Users
+              name={userName}
+              icon={userIcon}
+              iconRank={userRank}
+              attribut={userAttribut}
+              colorAttribut={userColorAttribut}
+            ></Users>
+          )}
         <div className="font-poppins text-base text-black w-[560px] h-[140px] text-wrap overflow-hidden">
           {content}
         </div>
         <div className="flex items-center justify-start space-x-5">
           <div className="text-lg opacity-50">{nbRegistered} inscrits</div>
-          {!subscribed && <Button size={"2xs"}
-                   onClick={() => {
-                     setDisplayName(true);
-                     startCamera();
-                   }}
-                   bg={"black"}
-                   color={"white"}
-                   width={120}
-                   height={10}
-                   rounded={"2xl"}
-          >S'inscrire</Button>}
+          {!subscribed && (
+            <Button
+              size={"2xs"}
+              onClick={() => {
+                setDisplayName(true);
+                startCamera();
+              }}
+              bg={"black"}
+              color={"white"}
+              width={120}
+              height={10}
+              rounded={"2xl"}
+            >
+              S'inscrire
+            </Button>
+          )}
           <CommentButton nbComments={nbComments}></CommentButton>
           <LikeButton nbLikes={nbLikes}></LikeButton>
         </div>
       </div>
-      <ReactModal isOpen={displayName} style={registerStyles} ariaHideApp={false}>
+      <ReactModal
+        isOpen={displayName}
+        style={registerStyles}
+        ariaHideApp={false}
+      >
         <div className="w-full h-full justify-center items-center flex flex-col">
-          <Image src="https://cdn-icons-png.flaticon.com/512/6022/6022815.png" alt="moulaga" width={150} height={150}/>
-          {user && <p className="font-semibold text-3xl pt-16">Bonjour {user.firstName} !</p>}
+          <Image
+            src="https://cdn-icons-png.flaticon.com/512/6022/6022815.png"
+            alt="moulaga"
+            width={150}
+            height={150}
+          />
+          {user && (
+            <p className="font-semibold text-3xl pt-16">
+              Bonjour {user.firstName} !
+            </p>
+          )}
           <video
-              ref={videoRef}
-              playsInline
-              autoPlay
-              className="mt-4 w-0 h-0 rounded-lg"
-              id="video"
+            ref={videoRef}
+            playsInline
+            autoPlay
+            className="mt-4 w-0 h-0 rounded-lg"
+            id="video"
           >
             Flux vidéo non disponible.
           </video>
         </div>
       </ReactModal>
-    {/*</div>*/}
+      {/*</div>*/}
     </>
   );
 };
@@ -157,15 +179,9 @@ export const HotTopic = ({
 const registerStyles = {
   content: {
     top: "50%",
-    left
-        :
-        "50%",
-    height
-        :
-        "40%",
-    width
-        :
-        "20%",
+    left: "50%",
+    height: "40%",
+    width: "20%",
     transform: "translate(-50%, -50%)",
     borderRadius: "1.5rem",
     boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
@@ -173,5 +189,5 @@ const registerStyles = {
     padding: "1rem",
     backgroundColor: "white",
     overflow: "hidden",
-  }
+  },
 };
