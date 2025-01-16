@@ -11,11 +11,11 @@ try {
     }
   })
   users = await response.json();
-  console.log(JSON.stringify(users));
+  //console.log(JSON.stringify(users));
   if (users.length > 0) {
     labeledDescriptors = users.map(profile => {
       return new faceapi.LabeledFaceDescriptors(
-          profile.id,
+          profile.id.toString(),
           profile.faceDescriptor.map((d: number[]) => new Float32Array(d))
       );
     });
@@ -27,7 +27,7 @@ try {
 
 
 
-export const loginUser = async (videoElement: HTMLVideoElement): Promise<string | null> => {
+export const loginUser = async (videoElement: HTMLVideoElement): Promise<object | null> => {
   try {
     const MODEL_URL = '/models';
     await Promise.all([
@@ -44,7 +44,7 @@ export const loginUser = async (videoElement: HTMLVideoElement): Promise<string 
     faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.6);
     if (detection) {
       const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
-      return bestMatch.label === 'unknown' ? null : bestMatch.label;
+      return bestMatch.label === 'unknown' ? null : users.find((user: any) => user.id.toString() == bestMatch.label);
     } else {
       return null;
     }

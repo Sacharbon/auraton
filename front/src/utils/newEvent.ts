@@ -19,19 +19,3 @@ export async function newEvent(authorId: number, label: string, title: string, d
   });
   return await req.json();
 }
-
-const currentDate = new Date();
-
-const file = new File(["foo"], "foo.txt", {
-  type: "text/plain",
-});
-
-for (let step = 0; step < 10; step++) {
-  // Ajouter 1 seconde (1000 millisecondes) à chaque itération
-  currentDate.setSeconds(currentDate.getSeconds() + 1);
-  
-  // Formatter la date pour votre requête
-  const formattedDate = currentDate.toISOString().slice(0, 19).replace('T', ' ');
-  
-  await newEvent(1, "SPORT", "Match", "venez tous les gars", file, formattedDate);
-}
