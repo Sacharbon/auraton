@@ -2,9 +2,9 @@ import Acceuil from "@/assets/Acceuil";
 
 interface UserRankProps {
   rank: number;
-  picture: any;
   name: any;
   aura: any;
+  picture: any;
 }
 
 export default function UserRank({ rank, name, aura, picture }: UserRankProps) {
@@ -40,7 +40,7 @@ export default function UserRank({ rank, name, aura, picture }: UserRankProps) {
         <div className="flex flex-row items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-full">
             <img
-              src="https://i.seadn.io/gae/2hDpuTi-0AMKvoZJGd-yKWvK4tKdQr_kLIpB_qSeMau2TNGCNidAosMEvrEXFO9G6tmlFlPQplpwiqirgrIPWnCKMvElaYgI-HiVvXc?auto=format&dpr=1&w=1000"
+              src={picture}
               className="h-full w-full object-cover rounded-full"
             />
           </div>
