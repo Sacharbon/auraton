@@ -41,6 +41,7 @@ export const loginUser = async (videoElement: HTMLVideoElement): Promise<string 
       .withFaceLandmarks(true)
       .withFaceDescriptor();
 
+    faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.6);
     if (detection) {
       const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
       return bestMatch.label === 'unknown' ? null : bestMatch.label;
