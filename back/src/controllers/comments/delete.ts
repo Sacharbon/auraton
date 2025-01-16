@@ -6,12 +6,12 @@ import {CODE_STATUS} from "@config/variables";
 
 export default async function deleteComment(req: Request, res: Response)
 {
-    const { id } = req.params;
+    const { commentId: id } = req.params;
 
     if (!id) {
         return handleRequestError(res, new CustomError(
             CUSTOM_ERROR_TYPE.BAD_REQUEST,
-            "At least one of the required parameters is missing. ('eventId', 'authorId')"
+            "The required parameter 'commentId' is missing."
         ));
     }
 

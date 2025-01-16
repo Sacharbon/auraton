@@ -12,9 +12,13 @@ class Comment extends Model {
 export async function initCommentModel(database: Sequelize) {
     Comment.init(
         {
-            authorId: {
+            id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
+                autoIncrement: true
+            },
+            authorId: {
+                type: DataTypes.INTEGER,
                 references: {
                     model: User,
                     key: 'id'
@@ -22,7 +26,6 @@ export async function initCommentModel(database: Sequelize) {
             },
             eventId: {
                 type: DataTypes.INTEGER,
-                primaryKey: true,
                 references: {
                     model: Event,
                     key: 'id'
