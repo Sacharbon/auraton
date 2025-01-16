@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 import { initializeDatabase } from "@config/database";
 import userRouter from "@routes/users";
 import eventRouter from "@routes/events";
-import cors from "cors";
 import publicRouter from "@routes/public";
+import cors from "cors";
 
 dotenv.config();
 
