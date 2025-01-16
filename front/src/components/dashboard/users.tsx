@@ -20,7 +20,7 @@ export const Users = ({icon, name, iconRank, attribut, colorAttribut}: UsersProp
             <div className={`font-poppins font-medium text-lg `}>{name}</div>
           </div>
         </div>
-        <div className="pl-12">
+        <div className="pl-14">
           <Attribut attribut={attribut} color={colorAttribut}></Attribut>
         </div>
       </div>
