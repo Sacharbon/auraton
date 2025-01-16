@@ -6,7 +6,6 @@ import Leaderboard from "@/components/dashboard/ranking/leaderboard";
 import Image from "next/image";
 import { PastEvents } from "@/components/dashboard/pastEvents/pastEvents";
 import { Images } from "@/components/test";
-import { Users } from "@/components/dashboard/users";
 import { IncomingEvents } from "@/components/dashboard/incomingEvents/incomingEvents";
 
 export default function Home() {
