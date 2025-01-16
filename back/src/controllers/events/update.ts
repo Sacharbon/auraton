@@ -39,7 +39,7 @@ export default async function updateEvent(req: Request, res: Response)
                 {
                     model: Registration,
                     as: "registeredUsers",
-                    attributes: { exclude: ['eventId', 'userId', 'createdAt', 'updatedAt'] },
+                    attributes: { exclude: ['eventId', 'userId'] },
                     include: [
                         {
                             model: User,
