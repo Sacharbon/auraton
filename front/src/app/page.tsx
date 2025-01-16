@@ -3,7 +3,6 @@
 import Header from "@/components/dashboard/header";
 import { HotTopic } from "@/components/dashboard/hotTopic/hotTopic";
 import Leaderboard from "@/components/dashboard/ranking/leaderboard";
-import Modal from "@/utils/Modal";
 import Image from "next/image";
 import { PastEvents } from "@/components/dashboard/pastEvents/pastEvents";
 import { Images } from "@/components/test";
@@ -33,7 +32,8 @@ export default function Home() {
             </div>
             <HotTopic
               title="Classico tek1 vs tek2"
-              content="Contenu"
+              content="Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu  Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu Contenu "
+              nbRegistered="23"
               topicAttribut="Hot Topic"
               userIcon={Images.aurelien}
               userName="Aurelien Joncourt"
