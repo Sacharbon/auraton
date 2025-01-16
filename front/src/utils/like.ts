@@ -1,4 +1,4 @@
-import { getEvent } from './getEvents.tsx';
+import { getEvent } from './getEvents';
 
 export async function like(eventId: number, userId: number) {
   const url = 'http://localhost:3000/events/';

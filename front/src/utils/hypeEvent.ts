@@ -1,4 +1,4 @@
-import { getEvents } from './getEvents.tsx';
+import { getEvents } from './getEvents';
 
 export async function hypeEvent() {
   try {
