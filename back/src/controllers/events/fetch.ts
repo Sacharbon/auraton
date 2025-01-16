@@ -3,6 +3,7 @@ import handleRequestError from "@errors/handler";
 import Event from "@models/event";
 import {CODE_STATUS} from "@config/variables";
 import User from "@models/user";
+import Registration from "@models/registration";
 import Comment from "@models/comment";
 import CustomError, {CUSTOM_ERROR_TYPE} from "@errors/custom";
 
@@ -21,6 +22,17 @@ export async function getEvents(req: Request, res: Response)
                 {
                     model: User,
                     as: "author",
+                },
+                {
+                    model: Registration,
+                    as: "registeredUsers",
+                    attributes: { exclude: ['eventId', 'userId', 'createdAt', 'updatedAt'] },
+                    include: [
+                        {
+                            model: User,
+                            as: "user"
+                        }
+                    ]
                 }
             ]
         });
@@ -69,6 +81,17 @@ export async function getEventById(req: Request, res: Response)
                     model: User,
                     as: "author"
                 },
+                {
+                    model: Registration,
+                    as: "registeredUsers",
+                    attributes: { exclude: ['eventId', 'userId', 'createdAt', 'updatedAt'] },
+                    include: [
+                        {
+                            model: User,
+                            as: "user"
+                        }
+                    ]
+                }
             ]
         })
     } catch (error) {
