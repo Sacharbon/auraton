@@ -1,4 +1,3 @@
-import { Poppins } from "next/font/google";
 import type { Config } from "tailwindcss";
 
 export default {
