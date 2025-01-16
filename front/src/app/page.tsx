@@ -146,7 +146,7 @@ export default function Home() {
                 className="w-10 h-10"
               />
             </div>
-            <div className="rounded-3xl shadow-3xl">
+            <div className="rounded-3xl">
               <PastEvents
                 image1={Images.aurelien}
                 image2={Images.aurelien}

@@ -55,7 +55,11 @@ export async function saveUploadedFile(file: Express.Multer.File, newName: strin
     const avatarFileName = `${newName}${extension}`;
     const newPath = path.join(directory, avatarFileName);
 
-    await fs.promises.rename(previousPath, newPath);
+    try {
+        await fs.promises.rename(previousPath, newPath);
+    } catch (error) {
+        console.error("Erreur: Le fichier n'a pas pu être sauvegardé: ", error);
+    }
 
     return newPath;
 }

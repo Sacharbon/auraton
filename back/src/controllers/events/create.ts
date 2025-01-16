@@ -7,6 +7,7 @@ import Comment from "@models/comment";
 import Event from "@models/event";
 import {CODE_STATUS} from "@config/variables";
 import Registration from "@models/registration";
+import {updateUserRole} from "@utils/roles";
 
 export default async function createEvent(req: Request, res: Response)
 {
@@ -22,9 +23,11 @@ export default async function createEvent(req: Request, res: Response)
     }
 
     let author = null;
+    let users = null;
 
     try {
         author = await User.findByPk(authorId);
+        users = await User.findAll();
     } catch (error) {
         await deleteUploadedFile(image);
         return handleRequestError(res, error);
@@ -39,6 +42,7 @@ export default async function createEvent(req: Request, res: Response)
     }
 
     author.aura += 10_000;
+    await updateUserRole(author, users);
 
     let event = null;
     try {
