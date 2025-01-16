@@ -190,8 +190,8 @@ export default function Calendar() {
           <ol className="mt-2">
             <li>
               <a href="#" className="group flex">
-                <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Date night</p>
-                <time dateTime="2022-01-08T18:00" className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">6PM</time>
+                <p className="flex-auto truncate font-poppins text-lg text-gray-900 group-hover:text-indigo-600">SORTIE SAINT-ANNE 🍻</p>
+                <time dateTime="2022-01-08T18:00" className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">22h</time>
               </a>
             </li>
           </ol>
@@ -213,7 +213,7 @@ export default function Calendar() {
           <ol className="mt-2">
             <li>
               <a href="#" className="group flex">
-                <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">TEK 1 VS TEK 2 FOOT</p>
+                <p className="flex-auto truncate font-medium text-base  text-gray-900 group-hover:text-indigo-600">TEK 1 VS TEK 2 FOOT ⚽</p>
                 <time dateTime="2022-01-25T14:00" className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">17h</time>
               </a>
             </li>
@@ -249,15 +249,15 @@ export default function Calendar() {
         <div className="relative bg-white px-3 py-2">
           <time dateTime="2022-01-22">22</time>
           <ol className="mt-2">
-            <li>
+            {/* <li>
               <a href="#" className="group flex">
                 <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Maple syrup museum</p>
                 <time dateTime="2022-01-22T15:00" className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">3PM</time>
               </a>
-            </li>
+            </li> */}
             <li>
               <a href="#" className="group flex">
-                <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Hockey game</p>
+                <p className="flex-auto truncate font-medium text-lg text-gray-900 group-hover:text-indigo-600">Patinoire ⛸️⛸️</p>
                 <time dateTime="2022-01-22T19:00" className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">7PM</time>
               </a>
             </li>
@@ -302,12 +302,12 @@ export default function Calendar() {
         <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
           <time dateTime="2022-02-04">4</time>
           <ol className="mt-2">
-            <li>
+            {/* <li>
               <a href="#" className="group flex">
                 <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">Cinema with friends</p>
                 <time dateTime="2022-02-04T21:00" className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block">9PM</time>
               </a>
-            </li>
+            </li> */}
           </ol>
         </div>
         <div className="relative bg-gray-50 px-3 py-2 text-gray-500">
