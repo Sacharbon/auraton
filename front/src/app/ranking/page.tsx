@@ -1,4 +1,4 @@
-import Header from "@/components/dashboard/header";
+import Header from "@/components/dashboard/header/header";
 import { Podium } from "@/components/dashboard/ranking/podium";
 import { Images } from "@/components/test";
 
@@ -8,11 +8,12 @@ export default function Ranking() {
       <div className="w-full h-fit">
         <Header />
       </div>
-        <Podium image1st={Images.aurelien}
-                image2nd={Images.aurelien}
-                image3trd={Images.aurelien}></Podium>
-      <div>
-      </div>
+      <Podium
+        image1st={Images.aurelien}
+        image2nd={Images.aurelien}
+        image3trd={Images.aurelien}
+      ></Podium>
+      <div></div>
     </div>
   );
 }
