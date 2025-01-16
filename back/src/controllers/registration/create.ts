@@ -6,6 +6,7 @@ import Comment from "@models/comment";
 import CustomError, {CUSTOM_ERROR_TYPE} from "@errors/custom";
 import Registration from "@models/registration";
 import {CODE_STATUS} from "@config/variables";
+import {updateUserRole} from "@utils/roles";
 
 export default async function registerUserToEvent(req: Request, res: Response)
 {
@@ -46,8 +47,10 @@ export default async function registerUserToEvent(req: Request, res: Response)
     }
 
     let user = null;
+    let users = null;
     try {
         user = await User.findByPk(userId);
+        users = await User.findAll();
     } catch (error) {
         return handleRequestError(res, error);
     }
@@ -58,6 +61,12 @@ export default async function registerUserToEvent(req: Request, res: Response)
             `The user with id '${userId}' does not exist.`
         ));
     }
+
+    user.aura += 1_000;
+    event.author.aura += 1_000;
+
+    await updateUserRole(user, users);
+    await updateUserRole(event.author, users);
 
     try {
         await Registration.create({

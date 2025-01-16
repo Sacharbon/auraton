@@ -102,5 +102,5 @@ export async function updateUser(req: Request, res: Response)
         return handleRequestError(res, error);
     }
 
-    res.json({...(user.dataValues)}).status(CODE_STATUS.SUCCESS);
+    res.json(user).status(CODE_STATUS.SUCCESS);
 }
