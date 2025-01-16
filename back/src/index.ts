@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import dotenv from "dotenv";
 import { initializeDatabase } from "@config/database";
 import userRouter from "@routes/users";
+import eventRouter from "@routes/events";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ initializeDatabase().then(() => {
 });
 
 app.use('/users/', userRouter);
+app.use('/events/', eventRouter);
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

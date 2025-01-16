@@ -1,3 +1,4 @@
 export const Images = {
-    aurelien: '/aurelien.jpg'
+    aurelien: '/aurelien.jpg',
+    knight: '/chevalier.png'
   };

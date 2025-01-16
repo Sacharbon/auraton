@@ -10,6 +10,7 @@ interface HotTopicProps {
   topicColorAttribut: string;
   userIcon?: string;
   userName?: string;
+  userRank?: string
   userAttribut?: string;
   userColorAttribut?: string;
 }
@@ -22,6 +23,7 @@ export const HotTopic = ({
   topicColorAttribut,
   userIcon,
   userName,
+  userRank,
   userAttribut,
   userColorAttribut,
 }: HotTopicProps) => {
@@ -39,10 +41,11 @@ export const HotTopic = ({
         )}
       </div>
       <div className="flex-row space-y-4">
-        {userName && userIcon && userAttribut && userColorAttribut && (
+        {userName && userIcon && userAttribut && userRank && userColorAttribut && (
           <Users
             name={userName}
             icon={userIcon}
+            iconRank={userRank}
             attribut={userAttribut}
             colorAttribut={userColorAttribut}
           ></Users>

@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize";
-import {initUserModel} from "@models/user";
-import {initAnnounceModel} from "@models/announce";
-import {initCommentModel} from "@models/comment";
+import User, {initUserModel} from "@models/user";
+import Event, {initEventModel} from "@models/event";
+import Comment, {initCommentModel} from "@models/comment";
 
 dotenv.config();
 
@@ -16,14 +16,42 @@ const database = new Sequelize(DATABASE, USER, PASSWORD, {
     dialect: 'mysql'
 });
 
+async function initConstraints()
+{
+    Comment.belongsTo(Event, {
+        foreignKey: "eventId",
+        targetKey: "id",
+        as: "comments"
+    });
+
+    Event.hasMany(Comment, {
+        foreignKey: "eventId",
+        sourceKey: "id",
+        as: "comments"
+    });
+
+    Event.hasOne(User, {
+        foreignKey: "id",
+        sourceKey: "authorId",
+        as: "author"
+    });
+
+    User.belongsTo(Event, {
+        foreignKey: "id",
+        targetKey: "authorId",
+        as: "author"
+    });
+}
+
 export async function initializeDatabase()
 {
     // Login to the database
     try {
         await database.authenticate();
         await initUserModel(database);
-        await initAnnounceModel(database);
+        await initEventModel(database);
         await initCommentModel(database);
+        await initConstraints();
         console.log('Successfully connected to the db.');
     } catch (error) {
         console.error('An error occurred while connecting to the database: ', error);

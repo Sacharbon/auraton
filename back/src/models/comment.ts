@@ -1,10 +1,10 @@
 import {DataTypes, Model, Sequelize} from 'sequelize';
 import User from "@models/user";
-import Announce from "@models/announce";
+import Event from "@models/event";
 
 class Comment extends Model {
     declare authorId: number;
-    declare announceId: number;
+    declare eventId: number;
     declare comment: string;
     declare likes: number;
 }
@@ -20,11 +20,11 @@ export async function initCommentModel(database: Sequelize) {
                     key: 'id'
                 }
             },
-            announceId: {
+            eventId: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 references: {
-                    model: Announce,
+                    model: Event,
                     key: 'id'
                 }
             },
@@ -42,6 +42,7 @@ export async function initCommentModel(database: Sequelize) {
             sequelize: database, modelName: 'Comment'
         }
     );
+
 }
 
 export default Comment;

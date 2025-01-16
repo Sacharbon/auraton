@@ -5,7 +5,10 @@ import { HotTopic } from "@/components/dashboard/hotTopic/hotTopic";
 import Leaderboard from "@/components/dashboard/ranking/leaderboard";
 import Modal from "@/utils/Modal";
 import Image from "next/image";
-import { useState } from "react";
+import { PastEvents } from "@/components/dashboard/pastEvents/pastEvents";
+import { Images } from "@/components/test";
+import { Users } from "@/components/dashboard/users";
+import { IncomingEvents } from "@/components/dashboard/incomingEvents/incomingEvents";
 
 export default function Home() {
   return (
@@ -37,25 +40,54 @@ export default function Home() {
             />
           </div>
           <div className="w-full h-[35%]">
-            <div className="flex flex-row items-end pb-5">
-              <p className="font-semibold text-3xl text-gray-900 pr-2">
-                À venir
-              </p>
-              <Image
-                src="https://em-content.zobj.net/source/apple/391/eyes_1f440.png"
-                alt="Remote photo"
-                width={100}
-                height={100}
-                className="w-10 h-10"
-              />
-            </div>
-            <div className="rounded-3xl shadow-3xl">
-              <HotTopic
-                title="Titre"
-                content="Contenu"
-                topicAttribut="Hot Topic"
-                topicColorAttribut="bg-red-500"
-              />
+            <div className="w-full h-[35%]">
+              <div className="flex flex-row items-end pb-5">
+                <p className="font-semibold text-3xl text-gray-900 pr-2">
+                  À venir
+                </p>
+                <Image
+                  src="https://em-content.zobj.net/source/apple/391/eyes_1f440.png"
+                  alt="Remote photo"
+                  width={100}
+                  height={100}
+                  className="w-10 h-10"
+                />
+              </div>
+              <div className="flex space-x-14">
+                <div className="rounded-3xl shadow-3xl w-80 h-48  ">
+                  <IncomingEvents
+                    userIcon={Images.aurelien}
+                    userName="Aurelien Joncourt"
+                    userRank={Images.knight}
+                    titre="Je suis de retour !!"
+                    description="yo la team je suis de retour, tout ça pour dire que je bz esteban cet enorme fdp, je le 1v1 facile ce chien de merde sdqsc aeazeazq qsdqsdsq"
+                    nbRegistered="13"
+                    date="19 Janv. 2025"
+                  ></IncomingEvents>
+                </div>
+                <div className="rounded-3xl shadow-3xl w-80 h-48  ">
+                  <IncomingEvents
+                    userIcon={Images.aurelien}
+                    userName="Aurelien Joncourt"
+                    userRank={Images.knight}
+                    titre="Je suis de retour !!"
+                    description="yo la team je suis de retour, tout ça pour dire que je bz esteban cet enorme fdp, je le 1v1 facile ce chien de merde sdqsc aeazeazq qsdqsdsq"
+                    nbRegistered="13"
+                    date="19 Janv. 2025"
+                  ></IncomingEvents>
+                </div>
+                <div className="rounded-3xl shadow-3xl w-80 h-48  ">
+                  <IncomingEvents
+                    userIcon={Images.aurelien}
+                    userName="Aurelien Joncourt"
+                    userRank={Images.knight}
+                    titre="Je suis de retour !!"
+                    description="yo la team je suis de retour, tout ça pour dire que je bz esteban cet enorme fdp, je le 1v1 facile ce chien de merde sdqsc aeazeazq qsdqsdsq"
+                    nbRegistered="13"
+                    date="19 Janv. 2025"
+                  ></IncomingEvents>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -73,9 +105,9 @@ export default function Home() {
                 className="w-10 h-10"
               />
             </div>
-            <div className="h-full rounded-3xl ">
+            {/* <div className="h-full rounded-3xl ">
               <Leaderboard />
-            </div>
+            </div> */}
           </div>
           <div className="w-full h-[35%]">
             <div className="flex flex-row items-end pb-5">
@@ -91,12 +123,10 @@ export default function Home() {
               />
             </div>
             <div className="rounded-3xl shadow-3xl">
-              <HotTopic
-                title="Titre"
-                content="Contenu"
-                topicAttribut="Hot Topic"
-                topicColorAttribut="bg-red-500"
-              />
+              <PastEvents
+                image1={Images.aurelien}
+                image2={Images.aurelien}
+              ></PastEvents>
             </div>
           </div>
         </div>
