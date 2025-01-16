@@ -3,6 +3,7 @@ import { Sequelize } from "sequelize";
 import User, {initUserModel} from "@models/user";
 import Event, {initEventModel} from "@models/event";
 import Comment, {initCommentModel} from "@models/comment";
+import Registration, {initRegistrationModel} from "@models/registration";
 
 dotenv.config();
 
@@ -41,6 +42,30 @@ async function initConstraints()
         targetKey: "authorId",
         as: "author"
     });
+
+    Registration.belongsTo(Event, {
+        foreignKey: "eventId",
+        targetKey: "id",
+        as: "registeredUsers"
+    });
+
+    Event.hasMany(Registration, {
+        foreignKey: "eventId",
+        sourceKey: "id",
+        as: "registeredUsers"
+    });
+
+    User.belongsTo(Registration, {
+        foreignKey: "id",
+        targetKey: "userId",
+        as: "user"
+    });
+
+    Registration.hasOne(User, {
+        foreignKey: "id",
+        sourceKey: "userId",
+        as: "user"
+    });
 }
 
 export async function initializeDatabase()
@@ -51,6 +76,7 @@ export async function initializeDatabase()
         await initUserModel(database);
         await initEventModel(database);
         await initCommentModel(database);
+        await initRegistrationModel(database);
         await initConstraints();
         console.log('Successfully connected to the db.');
     } catch (error) {
