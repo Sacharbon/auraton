@@ -32,6 +32,11 @@ export default function Home() {
               title="Classico tek1 vs tek2"
               content="Contenu"
               topicAttribut="Hot Topic"
+              userIcon={Images.aurelien}
+              userName="Aurelien Joncourt"
+              userRank={Images.knight}
+              userAttribut="OEUF"
+              userColorAttribut="bg-yellow-500"
               topicColorAttribut="bg-red-500"
               image="https://france3-regions.francetvinfo.fr/image/LnH9icnOXHg6S81iNxluNAmYVgc/1920x1080/regions/2023/10/24/reinesdufoot24p-tremolat-mamies-foot-00-00-21-15-653772cc06b36854329854.jpg"
             />
@@ -93,9 +98,9 @@ export default function Home() {
                 className="w-10 h-10"
               />
             </div>
-            {/* <div className="h-full rounded-3xl ">
+            <div className="h-full rounded-3xl ">
               <Leaderboard />
-            </div> */}
+            </div>
           </div>
           <div className="w-full h-[35%]">
             <div className="flex flex-row items-end pb-5">
