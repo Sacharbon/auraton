@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/components/dashboard/header";
+import Header from "@/components/dashboard/header/header";
 import { HotTopic } from "@/components/dashboard/hotTopic/hotTopic";
 import Leaderboard from "@/components/dashboard/ranking/leaderboard";
 import Image from "next/image";
