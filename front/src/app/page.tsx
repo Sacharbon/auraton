@@ -7,8 +7,28 @@ import Image from "next/image";
 import { PastEvents } from "@/components/dashboard/pastEvents/pastEvents";
 import { Images } from "@/components/test";
 import { IncomingEvents } from "@/components/dashboard/incomingEvents/incomingEvents";
+import { useState } from "react";
+import ReactModal from "react-modal";
 
 export default function Home() {
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      height: "90%",
+      width: "40%",
+      transform: "translate(-50%, -50%)",
+      borderRadius: "1.5rem",
+      boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+      border: "none",
+      padding: "1rem",
+      backgroundColor: "white",
+      overflow: "hidden",
+    },
+  };
+
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="w-screen h-screen flex flex-col gap-16 px-12 pt-12 pb-8">
       <div className="w-full h-fit">
@@ -96,7 +116,7 @@ export default function Home() {
           </div>
         </div>
         <div className="w-[40%] h-full flex flex-col gap-8">
-          <div className="w-full h-[65%]">
+          <div className="w-full h-[65%]" onClick={() => setShowModal(true)}>
             <div className="h-fit flex flex-row items-end pb-5">
               <p className="font-semibold text-3xl text-gray-900 pr-2">
                 Classement
@@ -135,6 +155,12 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <ReactModal isOpen={showModal} style={customStyles} ariaHideApp={false}>
+        <div
+          onClick={() => setShowModal(false)}
+          className="w-20 h-20 bg-black"
+        ></div>
+      </ReactModal>
     </div>
   );
 }
