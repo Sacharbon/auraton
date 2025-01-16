@@ -26,7 +26,7 @@ export async function getEvents(req: Request, res: Response)
                 {
                     model: Registration,
                     as: "registeredUsers",
-                    attributes: { exclude: ['eventId', 'userId', 'createdAt', 'updatedAt'] },
+                    attributes: { exclude: ['eventId', 'userId'] },
                     include: [
                         {
                             model: User,
@@ -84,7 +84,7 @@ export async function getEventById(req: Request, res: Response)
                 {
                     model: Registration,
                     as: "registeredUsers",
-                    attributes: { exclude: ['eventId', 'userId', 'createdAt', 'updatedAt'] },
+                    attributes: { exclude: ['eventId', 'userId'] },
                     include: [
                         {
                             model: User,
@@ -104,6 +104,8 @@ export async function getEventById(req: Request, res: Response)
             `The event with id '${id}' does not exist.`
         ));
     }
+
+    console.log("event: ", event);
 
     res.status(CODE_STATUS.SUCCESS).json(event);
 }

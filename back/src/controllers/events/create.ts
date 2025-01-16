@@ -38,6 +38,8 @@ export default async function createEvent(req: Request, res: Response)
         ));
     }
 
+    author.aura += 10_000;
+
     let event = null;
     try {
         event = await Event.create({
@@ -61,6 +63,7 @@ export default async function createEvent(req: Request, res: Response)
     }
 
     try {
+        await author.save();
         await event.save();
     } catch (error) {
         return handleRequestError(res, error);
@@ -83,7 +86,7 @@ export default async function createEvent(req: Request, res: Response)
                 {
                     model: Registration,
                     as: "registeredUsers",
-                    attributes: { exclude: ['eventId', 'userId', 'createdAt', 'updatedAt'] },
+                    attributes: { exclude: ['eventId', 'userId'] },
                     include: [
                         {
                             model: User,
