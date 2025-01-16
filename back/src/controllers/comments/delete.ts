@@ -37,6 +37,6 @@ export default async function deleteComment(req: Request, res: Response)
     }
 
     res.status(CODE_STATUS.SUCCESS).json({
-        message: `Registration of the user '${id}' has been removed.`
+        message: `The comment with id '${id}' has been deleted.`
     });
 }

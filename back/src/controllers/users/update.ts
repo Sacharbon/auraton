@@ -82,7 +82,7 @@ export async function updateUser(req: Request, res: Response)
                 "The field 'roles' should be an array of string."
             ));
         }
-        user.roles = [...new Set(user.roles.concat(roles))]
+        user.roles = [...new Set(user.roles.concat(formattedRoles))]
     }
 
     // Update picture
