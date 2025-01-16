@@ -1,7 +1,11 @@
+"use client";
+
 import Header from "@/components/dashboard/header";
 import { HotTopic } from "@/components/dashboard/hotTopic/hotTopic";
 import Leaderboard from "@/components/dashboard/ranking/leaderboard";
+import Modal from "@/utils/Modal";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
   return (
