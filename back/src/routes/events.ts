@@ -16,7 +16,7 @@ eventRouter.get('/:id', getEventById);
 eventRouter.patch('/:id', uploadFile('image', 'uploads/events/'), updateEvent);
 eventRouter.post('/:id/register', registerUserToEvent);
 eventRouter.post('/:id/comment', postComment);
-eventRouter.delete('/:eventId/comment/:authorId', deleteComment);
+eventRouter.delete('/:eventId/comment/:commentId', deleteComment);
 eventRouter.delete('/:eventId/unregister/:userId', unregisterUserFromEvent);
 
 export default eventRouter;
