@@ -11,7 +11,7 @@ interface PodiumProps {
 export const Podium = ({image2nd, image1st, image3trd}: PodiumProps) => {
     return (
 
-    <div className="relative flex justify-center items-end h-screen w-[50%] bg-gray-100">
+    <div className="relative flex ">
         {/* Podium */}
         <div className="flex items-end">
             {/* 2nd Place */}
