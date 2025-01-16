@@ -5,6 +5,7 @@ import { initializeDatabase } from "@config/database";
 import userRouter from "@routes/users";
 import eventRouter from "@routes/events";
 import cors from "cors";
+import publicRouter from "@routes/public";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ initializeDatabase().then(() => {
 
 app.use('/users/', userRouter);
 app.use('/events/', eventRouter);
+app.use('/', publicRouter);
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
