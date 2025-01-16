@@ -12,7 +12,7 @@ const port = process.env.API_PORT ?? 3000;
 const app = express();
 
 const corsOptions = {
-    origin: process.env.FRONT_URL
+    origin: JSON.parse(process.env.FRONT_URL ?? "[]")
 };
 app.use(cors(corsOptions));
 
