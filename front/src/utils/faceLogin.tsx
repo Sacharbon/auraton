@@ -15,7 +15,7 @@ try {
   if (users.length > 0) {
     labeledDescriptors = users.map(profile => {
       return new faceapi.LabeledFaceDescriptors(
-          profile.firstName + " " + profile.lastName,
+          profile.id,
           profile.faceDescriptor.map((d: number[]) => new Float32Array(d))
       );
     });

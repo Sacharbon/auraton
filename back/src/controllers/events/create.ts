@@ -44,7 +44,6 @@ export default async function createEvent(req: Request, res: Response)
     author.aura += 10_000;
     await updateUserRole(author, users);
 
-
     let event = null;
     try {
         event = await Event.create({

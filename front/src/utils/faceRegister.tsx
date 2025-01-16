@@ -29,9 +29,7 @@ export const registerUser = async (videoElement: HTMLVideoElement, firstName: st
         },
         body: JSON.stringify(data)
       })
-      const new_user = await response.json();
-      console.log(new_user);
-      return new_user;
+      return await response.json();
     } else {
       return null;
     }
