@@ -4,6 +4,7 @@ import Acceuil from "@/assets/Acceuil";
 import Ranking from "@/assets/Ranking";
 import Calendar from "@/assets/Calendar";
 import Image from "next/image";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
@@ -53,18 +54,13 @@ export default function Header() {
           <p className="font-semibold text-2xl">Calendrier</p>
         </div>
       </div>
-      <div
-        className="w-fit h-full flex flex-row items-center gap-2 hover:cursor-pointer"
-        onClick={() => {
-          window.location.href = "/profile";
-        }}
-      >
+      <div className="w-fit h-full flex flex-row items-center gap-2 hover:cursor-pointer hover:scale-105 transition-all duration-200">
         <Image
           src="https://cdn-icons-png.flaticon.com/512/3303/3303893.png"
           alt="Remote photo"
           width={100}
           height={100}
-          className="w-10 h-10"
+          className="w-10 h-10 "
         />
         <p className="text-2xl font-semibold pl-1">Nouvel évènement</p>
       </div>

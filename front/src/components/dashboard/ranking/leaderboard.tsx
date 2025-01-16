@@ -1,8 +1,8 @@
 import UserRank from "./UserRank";
 import userRanking from "@/utils/ranking";
 
-export default async function Leaderboard() {
-  const users = await userRanking();
+export default /* async */ function Leaderboard() {
+  // const users = await userRanking();
 
   return (
     <div className="flex flex-col h-[90%] p-3 rounded-3xl shadow-3xl gap-2">
@@ -12,7 +12,7 @@ export default async function Leaderboard() {
         <p className="text-[22px] font-semibold pr-20">Aura</p>
       </div>
       <div className="flex flex-col px-4 py-2 justify-between h-full">
-        <UserRank
+        {/* <UserRank
           rank={1}
           name={users[0].firstName}
           aura={users[0].aura}
@@ -41,7 +41,7 @@ export default async function Leaderboard() {
           name={users[4].firstName}
           aura={users[4].aura}
           picture={users[4].pictureURL}
-        />
+        /> */}
       </div>
     </div>
   );
