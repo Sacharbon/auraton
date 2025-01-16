@@ -1,4 +1,8 @@
 import Acceuil from "@/assets/Acceuil";
+import Scepter from "@/assets/scepter";
+import Tower from "@/assets/tower";
+import Wheat from "@/assets/wheat";
+import Knight from "@/assets/knight";
 
 interface UserRankProps {
   rank: number;
@@ -33,6 +37,21 @@ export default function UserRank({ rank, name, aura, picture }: UserRankProps) {
     }
   }
 
+  function getIcon({ aura, IconClass }: { aura: number; IconClass: string }) {
+    switch (true) {
+      case aura >= 10000000:
+        return <Scepter className={IconClass} />;
+      case aura >= 100000:
+        return <Tower className={IconClass} />;
+      case aura >= 10000:
+        return <Knight className={IconClass} />;
+      default:
+        return <Wheat className={IconClass} />;
+    }
+  }
+
+  const IconClass = "h-8 w-8 text-black";
+
   return (
     <div className="w-full h-10 flex flex-row items-center gap-6 pl-4 text-sm">
       <div className="flex flex-row items-center w-full gap-10 justify-start">
@@ -55,7 +74,7 @@ export default function UserRank({ rank, name, aura, picture }: UserRankProps) {
         >
           <p>{aura}</p>
         </div>
-        <Acceuil className="w-12 h-12" />
+        {getIcon({ aura, IconClass })}
       </div>
     </div>
   );
