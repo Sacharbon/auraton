@@ -69,14 +69,15 @@ export async function createUser(req: Request, res: Response)
         ));
     }
 
-    if (picture) {
-        try {
-            user.pictureUrl = await saveUploadedFile(picture, `${user.id}_picture`);
-            await user.save();
-        } catch (error) {
-            return handleRequestError(res, error);
-        }
+    if (picture)
+        user.pictureUrl = await saveUploadedFile(picture, `${user.id}_picture`);
+
+    try {
+        user.roles = user.roles.concat(["Écuyer"]);
+        await user.save();
+    } catch (error) {
+        return handleRequestError(res, error);
     }
 
-    res.json({...(user.dataValues)}).status(CODE_STATUS.SUCCESS);
+    res.json(user).status(CODE_STATUS.SUCCESS);
 }
