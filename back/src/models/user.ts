@@ -8,6 +8,7 @@ class User extends Model {
     declare faceDescriptor: number[]; // Float32
     declare roles: string[];
     declare pictureUrl: string;
+    declare aura: number;
 }
 
 export async function initUserModel(database: Sequelize) {
