@@ -6,6 +6,7 @@ import User from "@models/user";
 import Comment from "@models/comment";
 import Event from "@models/event";
 import {CODE_STATUS} from "@config/variables";
+import Registration from "@models/registration";
 
 export default async function createEvent(req: Request, res: Response)
 {
@@ -78,6 +79,17 @@ export default async function createEvent(req: Request, res: Response)
                 {
                     model: User,
                     as: "author"
+                },
+                {
+                    model: Registration,
+                    as: "registeredUsers",
+                    attributes: { exclude: ['eventId', 'userId', 'createdAt', 'updatedAt'] },
+                    include: [
+                        {
+                            model: User,
+                            as: "user"
+                        }
+                    ]
                 }
             ]
         });
