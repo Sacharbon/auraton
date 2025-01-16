@@ -17,7 +17,7 @@ export default function Ranking() {
           <div className="font-poppins font-bold text-3xl ">Classement 🏆</div>
         </div>
       </div>
-      <div className="flex flex-row w-full h-fullni items-start justify-center  ">
+      <div className="flex flex-row w-full h-full items-start justify-center  ">
         <div className="w-[50%] pt-72 pl-32">
           <Podium
             image1st={Images.aurelien}
@@ -25,7 +25,7 @@ export default function Ranking() {
             image3trd={Images.aurelien}
           ></Podium>
         </div>
-          <div className="w-[50%] h-full pt-16">
+          <div className="w-[50%] h-full pb-6">
               <Leaderboard></Leaderboard>
         </div>
 
