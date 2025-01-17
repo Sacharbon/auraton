@@ -10,4 +10,4 @@ export async function lastEvents() {
   return res;
 }
 
-await lastEvents();
+// await lastEvents();

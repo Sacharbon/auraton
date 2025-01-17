@@ -16,6 +16,7 @@ export default /* async */ function Leaderboard({users}: LeaderboardProps) {
       </div>
       <div className="flex flex-col px-4 py-2 justify-start h-full max-h-[100%] overflow-hidden">
         {users.map((user, index) => (
+            index < 7 &&
             <UserRank
                 key={index}
                 rank={index + 1}

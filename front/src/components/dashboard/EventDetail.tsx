@@ -9,7 +9,7 @@ export default function EventDetail({event}: any) {
       <div className="h-1/2 p-2 shadow-sm">
         <img
           className="object-cover w-full h-full"
-          src={Images.img_placeholder}
+          src={"http://localhost:3000/" + event.imageUrl}
         />
       </div>
       <div className="h-1/2 flex flex-col gap-4 p-2">

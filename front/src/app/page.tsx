@@ -174,7 +174,7 @@ export default function Home() {
                 }
                 image2={
                   (endedEvents.length > 1 &&
-                    "http://localhost:3000/" + endedEvents[0].imageUrl) ||
+                    "http://localhost:3000/" + endedEvents[1].imageUrl) ||
                   Images.img_placeholder
                 }
               ></PastEvents>

@@ -18,6 +18,7 @@ export const registerUser = async (videoElement: HTMLVideoElement|null, firstNam
       .withFaceDescriptor();
 
     if (detection) {
+      console.log([Object.values(detection.descriptor)])
       const data = {
         firstName: firstName,
         lastName: lastName,
