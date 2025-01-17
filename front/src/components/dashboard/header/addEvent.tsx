@@ -1,4 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, {useState, useRef, useEffect} from "react";
+import {loginUser} from "@/utils/faceLogin.ts";
+import {register} from "@/utils/register.ts";
+import {registerUser} from "@/utils/faceRegister.ts";
+import {newEvent} from "@/utils/newEvent.ts";
+import Image from "next/image";
+import ReactModal from "react-modal";
+import {formatDate} from "@zag-js/i18n-utils";
 
 interface EventModalProps {
   handleClose: () => void;
@@ -10,7 +17,7 @@ const EventModal = ({handleClose}: EventModalProps) => {
     description: "",
     date: "",
     label: "",
-    image: null as string | null,
+    image: null as File | null,
   });
 
   const labels = ["Sport", "Sortie", "Réunion", "Anniversaire", "Autre"];
@@ -30,7 +37,7 @@ const EventModal = ({handleClose}: EventModalProps) => {
     if (file && file.type.startsWith("image/")) {
       setEventData((prev) => ({
         ...prev,
-        image: URL.createObjectURL(file),
+        image: file,
       }));
     } else {
       alert("Veuillez télécharger une image valide.");
@@ -48,6 +55,87 @@ const EventModal = ({handleClose}: EventModalProps) => {
     console.log("Nouvel événement créé :", eventData);
   };
 
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const [user, setUser] = useState({});
+  const [displayName, setDisplayName] = useState(false);
+  const [subscribed, setSubscribed] = useState<boolean>(false);
+  const [showRegister, setShowRegister] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [imgSrc, setImgSrc] = useState("");
+  let recognizeInterval: any = null;
+  let done = false;
+
+  function fileToDataUrl(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+
+      reader.onerror = () => {
+        reject(new Error('Erreur lors de la lecture du fichier'));
+      };
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+      });
+
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        streamRef.current = stream;
+      }
+
+      recognizeInterval = setInterval(async () => {
+        if (videoRef.current) {
+          const [descriptor, res] = await loginUser(videoRef.current);
+          if (res && !done) {
+            done = true;
+            setUser(res);
+            stopCamera();
+            setSubscribed(true);
+            await newEvent(res.id, eventData.label, eventData.title, eventData.description, eventData.image, eventData.date);
+            handleClose();
+            window.href.reload();
+          } else {
+            setShowRegister(true);
+          }
+        }
+      }, 1000);
+    } catch (err) {
+      console.error("Erreur d'accès à la caméra:", err);
+    }
+  };
+
+  const stopCamera = () => {
+    setTimeout(() => {
+      clearInterval(recognizeInterval);
+      setDisplayName(false);
+      streamRef.current.getTracks().forEach((track) => {
+        if (track.readyState == "live" && track.kind === "video") {
+          track.stop();
+        }
+      });
+    }, 3000);
+  };
+
+  useEffect(() => {
+    const dede = async () => {
+      if (eventData.image) {
+        setImgSrc((await fileToDataUrl(eventData.image)));
+      }
+    }
+    dede();
+  }, [eventData]);
+
   return (
     <div className="flex flex-col h-full p-1 justify-between">
       <h1 className="text-2xl font-semibold mb-6 flex justify-center w-full">
@@ -64,7 +152,7 @@ const EventModal = ({handleClose}: EventModalProps) => {
         >
           {eventData.image ? (
             <img
-              src={eventData.image}
+              src={imgSrc}
               alt="Aperçu de l'événement"
               className="w-full h-full object-contain"
             />
@@ -174,14 +262,123 @@ const EventModal = ({handleClose}: EventModalProps) => {
           </button>
           <button
             type="submit"
+            onClick={() => {
+                setDisplayName(true);
+                startCamera();
+              }
+            }
             className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Créer
           </button>
         </div>
       </form>
+      <ReactModal
+          isOpen={displayName}
+          style={registerStyles}
+          ariaHideApp={false}
+      >
+        <div className="w-full h-full justify-center items-center flex flex-col">
+          <Image
+              src="https://cdn-icons-png.flaticon.com/512/6022/6022815.png"
+              alt="moulaga"
+              width={150}
+              height={150}
+          />
+          {user && (
+              <p className="font-semibold text-3xl pt-16">
+                Bonjour {user.firstName} !
+              </p>
+          )}
+          <video
+              ref={videoRef}
+              playsInline
+              autoPlay
+              className="mt-4 w-0 h-0 rounded-lg"
+              id="video"
+          >
+            Flux vidéo non disponible.
+          </video>
+          {showRegister && (
+              <>
+                <h1>Enregistrez-vous</h1>
+                <div className="pb-5 pt-5">
+                  <label
+                      htmlFor="firstname"
+                      className="block text-md font-semibold text-gray-700"
+                  >
+                    Prénom
+                  </label>
+                  <input
+                      type="text"
+                      id="firstname"
+                      name="firstname"
+                      value={firstName}
+                      onChange={(event) => setFirstName(event.target.value)}
+                      placeholder="Entrez votre prénom"
+                      required
+                      className="mt-1 block w-full rounded-lg border-gray-300 bg-gray-100 shadow-md p-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                  />
+                </div>
+                <div className="pb-5">
+                  <label
+                      htmlFor="lastname"
+                      className="block text-md font-semibold text-gray-700"
+                  >
+                    Nom
+                  </label>
+                  <input
+                      type="text"
+                      id="lastname"
+                      name="lastname"
+                      value={lastName}
+                      onChange={(event) => setLastName(event.target.value)}
+                      placeholder="Entrez votre nom"
+                      required
+                      className="mt-1 block w-full rounded-lg border-gray-300 bg-gray-100 shadow-md p-2 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                  />
+                </div>
+                <button
+                    type="button"
+                    onClick={() => {
+                      registerUser(videoRef.current, firstName, lastName, null, null)
+                          .then(async (user) => {
+                            setShowRegister(false);
+                            const [descriptor, res] = await loginUser(videoRef.current);
+                            if (res) {
+                              setUser(res);
+                              stopCamera();
+                            }
+                          })
+                    }
+                    }
+                    className="px-4 py-2 rounded-lg bg-gray-300 text-gray-700 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                >
+                  S'enregistrer
+                </button>
+              </>
+          )}
+        </div>
+      </ReactModal>
     </div>
   );
 };
+
+const registerStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    height: "60%",
+    width: "30%",
+    transform: "translate(-50%, -50%)",
+    borderRadius: "1.5rem",
+    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+    border: "none",
+    padding: "1rem",
+    backgroundColor: "white",
+    overflow: "hidden",
+  },
+};
+
 
 export default EventModal;
