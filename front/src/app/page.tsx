@@ -8,37 +8,35 @@ import { PastEvents } from "@/components/dashboard/pastEvents/pastEvents";
 import { Images } from "@/components/test";
 import { IncomingEvents } from "@/components/dashboard/incomingEvents/incomingEvents";
 import { useEffect, useState } from "react";
-import { hypeEvent } from "@/utils/hypeEvent.ts";
+import { hypeEvent } from "@/utils/hypeEvent";
+import { Event, Comment, User } from "@/utils/apiEntity";
 import { nextEvents } from "@/utils/nextEvents.ts";
+import { formatStringDate } from "@/utils/date.ts";
 import { lastEvents } from "@/utils/lastEvents.ts";
 import { ranking } from "@/utils/ranking.ts";
-import { User } from "@/utils/apiEntity.ts";
-import { formatStringDate } from "@/utils/date.ts";
+import ReactModal from "react-modal";
+import EventDetail from "@/components/dashboard/EventDetail";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
-  const [hotEvent, setHotEvent] = useState<Event|null>(null);
+  const [hotEvent, setHotEvent] = useState<Event | null>(null);
   const [incomingEvents, setIncomingEvents] = useState<Event[]>([]);
   const [endedEvents, setEndedEvents] = useState<Event[]>([]);
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    hypeEvent()
-        .then(event => {
-          setHotEvent(event);
-        });
-    nextEvents()
-        .then(events => {
-          setIncomingEvents(events);
-        })
-    lastEvents()
-        .then(events => {
-          setEndedEvents(events);
-        })
-    ranking()
-        .then(users => {
-          setUsers(users);
-        })
+    hypeEvent().then((event) => {
+      setHotEvent(event);
+    });
+    nextEvents().then((events) => {
+      setIncomingEvents(events);
+    });
+    lastEvents().then((events) => {
+      setEndedEvents(events);
+    });
+    ranking().then((users) => {
+      setUsers(users);
+    });
   }, []);
 
   return (
@@ -61,18 +59,28 @@ export default function Home() {
                 className="w-10 h-10"
               />
             </div>
-            <div className="flex h-[90%] space-x-16 w-100 p-5 rounded-3xl shadow-3xl justify-center items-center">
-              {!hotEvent && <h1 className="font-bold text-2xl">Aucun évènement</h1>
-                ||
+            <div
+              className="flex h-[90%] space-x-16 w-100 p-5 rounded-3xl shadow-3xl justify-center items-center hover:cursor-pointer hover:scale-105 transition-all duration-300"
+              onClick={() => setShowModal(true)}
+            >
+              {(!hotEvent && (
+                <h1 className="font-bold text-2xl">Aucun évènement</h1>
+              )) || (
                 <HotTopic
                   title={hotEvent?.title ?? ""}
                   content={hotEvent?.description ?? ""}
-                  nbRegistered={hotEvent?.registeredUsers.length.toString() ?? ""}
+                  nbRegistered={
+                    hotEvent?.registeredUsers.length.toString() ?? ""
+                  }
                   nbComments={hotEvent?.comments.length.toString() ?? ""}
                   nbLikes={hotEvent?.likes.toString() ?? ""}
                   topicAttribut="HOT TOPIC"
-                  userIcon={"http://localhost:3000/" + hotEvent?.author.pictureUrl}
-                  userName={hotEvent?.author.firstName + " " + hotEvent?.author.lastName}
+                  userIcon={
+                    "http://localhost:3000/" + hotEvent?.author.pictureUrl
+                  }
+                  userName={
+                    hotEvent?.author.firstName + " " + hotEvent?.author.lastName
+                  }
                   userRank={Images.knight}
                   userAttribut={hotEvent?.author.roles.toString()}
                   userColorAttribut="bg-yellow-500"
@@ -80,37 +88,45 @@ export default function Home() {
                   image={"http://localhost:3000/" + hotEvent?.imageUrl}
                   id={hotEvent?.id}
                 />
-            }
-          </div>
-          </div>
-          <div className="w-full h-[35%]">
+              )}
+            </div>
             <div className="w-full h-[35%]">
-              <div className="flex flex-row items-end pb-5">
-                <p className="font-semibold text-3xl text-gray-900 pr-2">
-                  À venir
-                </p>
-                <Image
-                  src="https://em-content.zobj.net/source/apple/391/eyes_1f440.png"
-                  alt="Remote photo"
-                  width={100}
-                  height={100}
-                  className="w-10 h-10"
-                />
-              </div>
-              <div className="flex space-x-14">
-                {incomingEvents.map((event, index) => (
-                    <div key={index} className="rounded-3xl shadow-3xl w-80 h-48">
+              <div className="w-full h-[35%]">
+                <div className="flex flex-row items-end pb-5">
+                  <p className="font-semibold text-3xl text-gray-900 pr-2">
+                    À venir
+                  </p>
+                  <Image
+                    src="https://em-content.zobj.net/source/apple/391/eyes_1f440.png"
+                    alt="Remote photo"
+                    width={100}
+                    height={100}
+                    className="w-10 h-10"
+                  />
+                </div>
+                <div className="flex space-x-14">
+                  {incomingEvents.map((event, index) => (
+                    <div
+                      key={index}
+                      className="rounded-3xl shadow-3xl w-80 h-48 hover:cursor-pointer hover:scale-105 transition-all duration-300"
+                      onClick={() => setShowModal(true)}
+                    >
                       <IncomingEvents
-                          userIcon={"http://localhost:3000/" + event.author.pictureUrl}
-                          userName={event.author.firstName + " " + event.author.lastName}
-                          userRank={Images.knight}
-                          titre={event.title}
-                          description={event.description}
-                          nbRegistered={event.registeredUsers.length.toString()}
-                          date={formatStringDate(event.scheduledAt)}
+                        userIcon={
+                          "http://localhost:3000/" + event.author.pictureUrl
+                        }
+                        userName={
+                          event.author.firstName + " " + event.author.lastName
+                        }
+                        userRank={Images.knight}
+                        titre={event.title}
+                        description={event.description}
+                        nbRegistered={event.registeredUsers.length.toString()}
+                        date={formatStringDate(event.scheduledAt)}
                       ></IncomingEvents>
                     </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -148,13 +164,52 @@ export default function Home() {
             </div>
             <div className="rounded-3xl">
               <PastEvents
-                image1={endedEvents.length > 0 && "http://localhost:3000/" + endedEvents[0].imageUrl || Images.img_placeholder}
-                image2={endedEvents.length > 1 && "http://localhost:3000/" + endedEvents[0].imageUrl || Images.img_placeholder}
+                image1={
+                  (endedEvents.length > 0 &&
+                    "http://localhost:3000/" + endedEvents[0].imageUrl) ||
+                  Images.img_placeholder
+                }
+                image2={
+                  (endedEvents.length > 1 &&
+                    "http://localhost:3000/" + endedEvents[0].imageUrl) ||
+                  Images.img_placeholder
+                }
               ></PastEvents>
             </div>
           </div>
         </div>
       </div>
+      <ReactModal
+        ariaHideApp={false}
+        isOpen={showModal}
+        onRequestClose={() => setShowModal(false)}
+        style={{
+          overlay: {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backdropFilter: "blur(5px)",
+          },
+          content: {
+            top: "50%",
+            left: "50%",
+            height: "80%",
+            width: "40%",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "1.5rem",
+            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+            border: "none",
+            padding: "1rem",
+            backgroundColor: "white",
+            overflow: "hidden",
+          },
+        }}
+      >
+        <EventDetail />
+      </ReactModal>
     </div>
-);
+  );
 }

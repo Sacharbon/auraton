@@ -27,7 +27,7 @@ try {
 
 
 
-export const loginUser = async (videoElement: HTMLVideoElement): Promise<object | null> => {
+export const loginUser = async (videoElement: HTMLVideoElement): Promise<[Float32Array|null, object|null]> => {
   try {
     const MODEL_URL = '/models';
     await Promise.all([
@@ -43,13 +43,14 @@ export const loginUser = async (videoElement: HTMLVideoElement): Promise<object 
 
     faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.6);
     if (detection) {
+      console.log(detection.descriptor);
       const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
-      return bestMatch.label === 'unknown' ? null : users.find((user: any) => user.id.toString() == bestMatch.label);
+      return bestMatch.label === 'unknown' ? [null, detection.descriptor] : [users.find((user: any) => user.id.toString() == bestMatch.label), null];
     } else {
-      return null;
+      return [null, null];
     }
   } catch (error) {
     console.error('Error recognizing face:', error);
-    return null;
+    return [null, null];
   }
 };
