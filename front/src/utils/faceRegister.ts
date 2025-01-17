@@ -1,6 +1,9 @@
 import * as faceapi from 'face-api.js';
 
-export const registerUser = async (videoElement: HTMLVideoElement, firstName: string, lastName: string, role: string | null, pictureUrl: string | null): Promise<object | null> => {
+export const registerUser = async (videoElement: HTMLVideoElement|null, firstName: string, lastName: string, role: string | null, picture: File | null): Promise<object | null> => {
+  if (!videoElement)
+    return null;
+
   try {
     const MODEL_URL = '/models';
     await Promise.all([
@@ -19,8 +22,6 @@ export const registerUser = async (videoElement: HTMLVideoElement, firstName: st
         firstName: firstName,
         lastName: lastName,
         faceDescriptor: [Object.values(detection.descriptor)],
-        roles: [role],
-        pictureUrl: pictureUrl,
       };
       const response = await fetch("http://localhost:3000/users", {
         method: 'POST',
