@@ -11,7 +11,7 @@ export async function like(eventId: number, userId: number) {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ like: event.like + 1, userId: userId })
+      body: JSON.stringify({ likes: event.likes + 1, userId: userId })
     });
 
     return await req.json();

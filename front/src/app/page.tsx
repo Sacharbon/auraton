@@ -13,6 +13,7 @@ import { nextEvents } from "@/utils/nextEvents.ts";
 import { lastEvents } from "@/utils/lastEvents.ts";
 import { ranking } from "@/utils/ranking.ts";
 import { User } from "@/utils/apiEntity.ts";
+import { formatStringDate } from "@/utils/date.ts";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);

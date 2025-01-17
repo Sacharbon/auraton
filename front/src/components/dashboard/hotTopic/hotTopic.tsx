@@ -131,7 +131,7 @@ export const HotTopic = ({
                    rounded={"2xl"}
           >S'inscrire</Button>}
           <CommentButton nbComments={nbComments}></CommentButton>
-          <LikeButton nbLikes={nbLikes}></LikeButton>
+          <LikeButton nbLikes={nbLikes} idEvent={id}></LikeButton>
         </div>
       </div>
       <ReactModal isOpen={displayName} style={registerStyles} ariaHideApp={false}>
