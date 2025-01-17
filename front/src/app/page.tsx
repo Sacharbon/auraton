@@ -59,7 +59,10 @@ export default function Home() {
                 className="w-10 h-10"
               />
             </div>
-            <div className="flex h-[90%] space-x-16 w-100 p-5 rounded-3xl shadow-3xl justify-center items-center">
+            <div
+              className="flex h-[90%] space-x-16 w-100 p-5 rounded-3xl shadow-3xl justify-center items-center hover:cursor-pointer hover:scale-105 transition-all duration-300"
+              onClick={() => setShowModal(true)}
+            >
               {(!hotEvent && (
                 <h1 className="font-bold text-2xl">Aucun évènement</h1>
               )) || (
@@ -105,7 +108,8 @@ export default function Home() {
                   {incomingEvents.map((event, index) => (
                     <div
                       key={index}
-                      className="rounded-3xl shadow-3xl w-80 h-48"
+                      className="rounded-3xl shadow-3xl w-80 h-48 hover:cursor-pointer hover:scale-105 transition-all duration-300"
+                      onClick={() => setShowModal(true)}
                     >
                       <IncomingEvents
                         userIcon={
@@ -192,7 +196,7 @@ export default function Home() {
           content: {
             top: "50%",
             left: "50%",
-            height: "90%",
+            height: "80%",
             width: "40%",
             transform: "translate(-50%, -50%)",
             borderRadius: "1.5rem",
