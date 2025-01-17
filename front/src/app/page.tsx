@@ -23,6 +23,7 @@ export default function Home() {
   const [incomingEvents, setIncomingEvents] = useState<Event[]>([]);
   const [endedEvents, setEndedEvents] = useState<Event[]>([]);
   const [users, setUsers] = useState<User[]>([]);
+  const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
 
   useEffect(() => {
     hypeEvent().then((event) => {
@@ -60,8 +61,7 @@ export default function Home() {
               />
             </div>
             <div
-              className="flex h-[90%] space-x-16 w-100 p-5 rounded-3xl shadow-3xl justify-center items-center hover:cursor-pointer hover:scale-105 transition-all duration-300"
-              onClick={() => setShowModal(true)}
+              className="flex h-[90%] space-x-16 w-100 p-5 rounded-3xl shadow-3xl justify-center items-center"
             >
               {(!hotEvent && (
                 <h1 className="font-bold text-2xl">Aucun évènement</h1>
@@ -109,7 +109,10 @@ export default function Home() {
                     <div
                       key={index}
                       className="rounded-3xl shadow-3xl w-80 h-48 hover:cursor-pointer hover:scale-105 transition-all duration-300"
-                      onClick={() => setShowModal(true)}
+                      onClick={() => {
+                        setShowModal(true)
+                        setCurrentEvent(event);
+                      }}
                     >
                       <IncomingEvents
                         userIcon={
@@ -208,7 +211,7 @@ export default function Home() {
           },
         }}
       >
-        <EventDetail />
+        <EventDetail event={currentEvent} />
       </ReactModal>
     </div>
   );

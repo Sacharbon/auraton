@@ -68,12 +68,14 @@ export const HotTopic = ({
         if (videoRef.current) {
           const [descriptor, label] = await loginUser(videoRef.current);
           if (label) {
+            console.log(label);
             setUser(label);
             stopCamera();
             register(label.id, id);
             setSubscribed(true);
+          } else {
+            setShowRegister(true);
           }
-          //   setShowRegister(true);
         }
       }, 1000);
     } catch (err) {
@@ -221,6 +223,7 @@ export const HotTopic = ({
                       registerUser(videoRef.current, firstName, lastName, null, null)
                           .then(async (user) => {
                             setShowRegister(false);
+
                             const [descriptor, label] = await loginUser(videoRef.current);
                             if (label) {
                               setUser(label);
