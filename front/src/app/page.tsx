@@ -13,7 +13,7 @@ import { Event, Comment, User } from "@/utils/apiEntity";
 import { nextEvents } from "@/utils/nextEvents.ts";
 import { formatStringDate } from "@/utils/date.ts";
 import { lastEvents } from "@/utils/lastEvents.ts";
-import { ranking } from "@/utils/ranking.ts";
+import ranking from "@/utils/ranking.ts";
 import ReactModal from "react-modal";
 import EventDetail from "@/components/dashboard/EventDetail";
 
